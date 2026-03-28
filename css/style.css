@@ -1,0 +1,955 @@
+/* =============================================================================
+   style.css — Ana Clara Tomaz | Psicóloga
+   Versão: 2.0 (separado do HTML)
+
+   Índice de seções:
+     01. Design Tokens (variáveis globais)
+     02. Reset & Base
+     03. Tipografia Global
+     04. Layout Helpers
+     05. Botões
+     06. Navbar
+     07. Menu Mobile
+     08. Hero
+     09. Sobre
+     10. Público Atendido
+     11. Benefícios
+     12. Abordagem / Quote
+     13. CTA Principal
+     14. Contato
+     15. Footer
+     16. WhatsApp Flutuante
+     17. Barra de Progresso
+     18. Responsividade — Tablet (≥ 640px)
+     19. Responsividade — Desktop (≥ 900px)
+     20. Animações (estado inicial)
+============================================================================= */
+
+
+/* =============================================================================
+   01. DESIGN TOKENS
+   Variáveis CSS globais. Altere aqui para mudar cores e fontes no site inteiro.
+============================================================================= */
+:root {
+  /* Paleta de cores */
+  --nude:        #F2EAE0;   /* fundo principal */
+  --nude-dark:   #E8DDD0;   /* fundo alternativo */
+  --terracota:   #C4896A;   /* acento quente — CTAs e destaques */
+  --salvia:      #8FA88A;   /* acento verde */
+  --marrom:      #5C3D2E;   /* texto principal */
+  --marrom-mid:  #7A5544;   /* texto secundário */
+  --creme:       #FBF7F2;   /* superfícies leves */
+  --branco:      #FFFFFF;
+
+  /* Tipografia */
+  --font-display: 'Cormorant Garamond', Georgia, serif;
+  --font-body:    'DM Sans', sans-serif;
+
+  /* Espaçamento e forma */
+  --radius-lg:    2rem;
+  --radius-sm:    0.75rem;
+  --max-w:        1100px;
+
+  /* Curva de animação padrão */
+  --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+/* =============================================================================
+   02. RESET & BASE
+============================================================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--nude);
+  color: var(--marrom);
+  font-family: var(--font-body);
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  overflow-x: hidden;
+  /* Cursor personalizado sutil */
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23C4896A' opacity='0.7'/%3E%3C/svg%3E") 10 10, auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+
+/* =============================================================================
+   03. TIPOGRAFIA GLOBAL
+============================================================================= */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--marrom);
+}
+
+/* Tamanhos fluidos — se adaptam ao viewport sem media queries */
+h1 { font-size: clamp(2.8rem, 8vw, 5.5rem); }
+h2 { font-size: clamp(2rem,   5vw, 3.2rem); }
+h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+p  { font-size: clamp(0.95rem, 2.5vw, 1.05rem); }
+
+/* Label de seção (ex: "Quem sou eu", "Para quem é") */
+.tag {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--terracota);
+}
+
+
+/* =============================================================================
+   04. LAYOUT HELPERS
+============================================================================= */
+.container {
+  width: 100%;
+  max-width: var(--max-w);
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+section {
+  padding-block: 5rem;
+}
+
+
+/* =============================================================================
+   05. BOTÕES
+============================================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 0.85rem 2rem;
+  border-radius: 100px;
+  border: none;
+  cursor: pointer;
+  transition:
+    transform  0.25s var(--ease-smooth),
+    box-shadow 0.25s var(--ease-smooth);
+}
+
+/* Botão primário — terracota sólido */
+.btn-primary {
+  background: var(--terracota);
+  color: var(--branco);
+}
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(196, 137, 106, 0.4);
+}
+
+/* Botão contorno — borda marrom */
+.btn-outline {
+  background: transparent;
+  color: var(--marrom);
+  border: 1.5px solid var(--marrom);
+}
+.btn-outline:hover {
+  background: var(--marrom);
+  color: var(--branco);
+  transform: translateY(-2px);
+}
+
+/* Botões dentro da seção CTA */
+.btn-cta-white {
+  background: var(--branco);
+  color: var(--terracota);
+  font-weight: 500;
+}
+.btn-cta-white:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+.btn-cta-ghost {
+  background: transparent;
+  color: var(--branco);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+}
+.btn-cta-ghost:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+
+/* =============================================================================
+   06. NAVBAR
+============================================================================= */
+#navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  padding: 1.2rem 0;
+  transition: background 0.4s, box-shadow 0.4s;
+}
+
+/* Aparece ao rolar (classe adicionada por JS) */
+#navbar.scrolled {
+  background: rgba(242, 234, 224, 0.92);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 2px 24px rgba(92, 61, 46, 0.08);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: var(--font-display);
+  font-size: 1.3rem;
+  font-weight: 400;
+  color: var(--marrom);
+  letter-spacing: 0.02em;
+}
+.nav-logo span {
+  color: var(--terracota);
+}
+
+/* Links — escondidos no mobile, visíveis no desktop */
+.nav-links {
+  display: none;
+  gap: 2rem;
+  list-style: none;
+}
+.nav-links a {
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  color: var(--marrom-mid);
+  transition: color 0.2s;
+}
+.nav-links a:hover {
+  color: var(--terracota);
+}
+
+/* Hamburguer (mobile) */
+.hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 4px;
+}
+.hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--marrom);
+  border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+
+/* Animação do X ao abrir */
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+
+/* =============================================================================
+   07. MENU MOBILE (overlay)
+============================================================================= */
+.mobile-menu {
+  display: none;           /* JS adiciona .open para mostrar */
+  position: fixed;
+  inset: 0;
+  background: var(--nude);
+  z-index: 99;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2.5rem;
+}
+.mobile-menu.open {
+  display: flex;
+}
+.mobile-menu a {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  color: var(--marrom);
+  transition: color 0.2s;
+}
+.mobile-menu a:hover {
+  color: var(--terracota);
+}
+
+
+/* =============================================================================
+   08. HERO
+============================================================================= */
+#hero {
+  min-height: 100svh;
+  padding-top: 7rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ornamentos de fundo — formas orgânicas em pseudo-elementos */
+#hero::before {
+  content: '';
+  position: absolute;
+  top: -10%;
+  right: -20%;
+  width: min(70vw, 600px);
+  height: min(70vw, 600px);
+  border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
+  background: radial-gradient(ellipse at center, rgba(196, 137, 106, 0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+#hero::after {
+  content: '';
+  position: absolute;
+  bottom: -5%;
+  left: -15%;
+  width: min(50vw, 400px);
+  height: min(50vw, 400px);
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(143, 168, 138, 0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Coluna de texto */
+.hero-text {
+  position: relative;
+  z-index: 1;
+}
+.hero-text .tag {
+  margin-bottom: 1.2rem;
+}
+.hero-title {
+  margin-bottom: 1.5rem;
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--terracota);
+}
+.hero-sub {
+  max-width: 480px;
+  color: var(--marrom-mid);
+  margin-bottom: 2.5rem;
+}
+.hero-cta-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+
+/* Coluna da foto */
+.hero-visual {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+}
+.hero-photo-wrap {
+  position: relative;
+  width: min(320px, 80vw);
+}
+
+/* Placeholder (quando não há foto real) */
+.photo-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(145deg, var(--nude-dark) 0%, #ddd0c4 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  color: var(--marrom-mid);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  text-align: center;
+  padding: 1rem;
+  position: relative;
+  overflow: hidden;
+}
+.photo-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='18' fill='%23C4896A' opacity='0.3'/%3E%3Cellipse cx='40' cy='70' rx='28' ry='20' fill='%23C4896A' opacity='0.2'/%3E%3C/svg%3E") center 30% / 80px no-repeat;
+}
+.photo-icon  { font-size: 3rem; opacity: 0.4; }
+.photo-label { opacity: 0.6; font-family: var(--font-body); }
+
+/* Badge flutuante sobre a foto */
+.hero-badge {
+  position: absolute;
+  bottom: -1rem;
+  left: -2rem;
+  background: var(--branco);
+  border-radius: var(--radius-sm);
+  padding: 0.9rem 1.2rem;
+  box-shadow: 0 8px 32px rgba(92, 61, 46, 0.12);
+  font-size: 0.78rem;
+  color: var(--marrom-mid);
+  max-width: 160px;
+  line-height: 1.4;
+}
+.hero-badge strong {
+  display: block;
+  font-size: 1rem;
+  color: var(--marrom);
+  font-family: var(--font-display);
+}
+
+/* Linha decorativa lateral */
+.hero-line {
+  position: absolute;
+  top: 2rem;
+  right: -1.5rem;
+  width: 3px;
+  height: 80px;
+  background: linear-gradient(to bottom, var(--terracota), transparent);
+  border-radius: 2px;
+}
+
+
+/* =============================================================================
+   09. SOBRE
+============================================================================= */
+#sobre {
+  background: var(--creme);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Barra colorida lateral esquerda */
+#sobre::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--terracota), var(--salvia));
+}
+
+.sobre-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Foto da seção Sobre */
+.sobre-foto-wrap {
+  position: relative;
+}
+.sobre-foto {
+  width: 100%;
+  max-width: 380px;
+  aspect-ratio: 1 / 1.1;
+  border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0;
+  object-fit: cover;
+  display: block;
+}
+
+/* Círculo decorativo atrás da foto */
+.sobre-deco {
+  position: absolute;
+  bottom: -1.5rem;
+  right: -1.5rem;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 2px solid var(--salvia);
+  opacity: 0.4;
+}
+
+/* Texto do Sobre */
+.sobre-content .tag  { margin-bottom: 1rem; }
+.sobre-content h2    { margin-bottom: 1.5rem; }
+.sobre-content h2 em { font-style: italic; color: var(--terracota); }
+.sobre-content p     { color: var(--marrom-mid); margin-bottom: 1rem; }
+
+/* Cards de formação acadêmica */
+.formacao-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 2rem;
+}
+.formacao-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  background: var(--branco);
+  border-radius: var(--radius-sm);
+  padding: 1rem 1.2rem;
+  box-shadow: 0 2px 12px rgba(92, 61, 46, 0.07);
+}
+.formacao-icon {
+  font-size: 1.4rem;
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+.formacao-item strong {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--marrom);
+  margin-bottom: 0.2rem;
+}
+.formacao-item span {
+  font-size: 0.8rem;
+  color: var(--marrom-mid);
+}
+
+
+/* =============================================================================
+   10. PÚBLICO ATENDIDO
+============================================================================= */
+#publico {
+  background: var(--nude);
+  text-align: center;
+}
+
+.publico-header .tag { margin-bottom: 1rem; }
+.publico-header h2   { margin-bottom: 1rem; }
+.publico-header p {
+  max-width: 520px;
+  margin-inline: auto;
+  color: var(--marrom-mid);
+  margin-bottom: 3rem;
+}
+
+.publico-cards {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.publico-card {
+  background: var(--creme);
+  border-radius: var(--radius-lg);
+  padding: 2rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform   0.3s var(--ease-smooth),
+    box-shadow  0.3s;
+}
+.publico-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(92, 61, 46, 0.1);
+}
+
+/* Faixa de cor no topo de cada card */
+.publico-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--terracota), var(--salvia));
+}
+
+.card-emoji      { font-size: 2.5rem; margin-bottom: 1rem; }
+.publico-card h3 { margin-bottom: 0.7rem; font-size: 1.4rem; }
+.publico-card p  { font-size: 0.9rem; color: var(--marrom-mid); }
+
+
+/* =============================================================================
+   11. BENEFÍCIOS
+============================================================================= */
+#beneficios {
+  background: var(--marrom);
+  color: var(--nude);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Mancha de luz decorativa */
+#beneficios::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(196, 137, 106, 0.15) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+.beneficios-header {
+  text-align: center;
+  margin-bottom: 3.5rem;
+}
+.beneficios-header .tag  { color: var(--terracota); margin-bottom: 1rem; }
+.beneficios-header h2    { color: var(--nude); margin-bottom: 1rem; }
+.beneficios-header h2 em { color: var(--terracota); font-style: italic; }
+.beneficios-header p     { color: rgba(242, 234, 224, 0.7); max-width: 500px; margin-inline: auto; }
+
+.beneficios-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.beneficio-item {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  padding: 1.5rem;
+  border-radius: var(--radius-sm);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background 0.3s, transform 0.3s;
+}
+.beneficio-item:hover {
+  background: rgba(196, 137, 106, 0.12);
+  transform: translateX(4px);
+}
+
+.beneficio-num {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--terracota);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 2.5rem;
+}
+.beneficio-item h4 {
+  color: var(--nude);
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+.beneficio-item p {
+  color: rgba(242, 234, 224, 0.65);
+  font-size: 0.88rem;
+}
+
+
+/* =============================================================================
+   12. ABORDAGEM / QUOTE
+============================================================================= */
+#abordagem {
+  background: var(--nude-dark);
+  text-align: center;
+}
+
+.quote-block {
+  max-width: 700px;
+  margin-inline: auto;
+  position: relative;
+}
+
+/* Aspas decorativas */
+.quote-block::before {
+  content: '"';
+  font-family: var(--font-display);
+  font-size: 8rem;
+  color: var(--terracota);
+  opacity: 0.2;
+  position: absolute;
+  top: -2rem;
+  left: -1rem;
+  line-height: 1;
+}
+
+.quote-text {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-style: italic;
+  color: var(--marrom);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+.quote-author {
+  font-size: 0.85rem;
+  color: var(--marrom-mid);
+  letter-spacing: 0.08em;
+}
+
+/* Pills de temas/abordagens */
+.abordagem-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  justify-content: center;
+  margin-top: 3rem;
+}
+.pill {
+  background: var(--branco);
+  border-radius: 100px;
+  padding: 0.5rem 1.2rem;
+  font-size: 0.8rem;
+  color: var(--marrom-mid);
+  border: 1px solid rgba(92, 61, 46, 0.1);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.pill:hover {
+  background: var(--terracota);
+  color: var(--branco);
+}
+
+
+/* =============================================================================
+   13. CTA PRINCIPAL
+============================================================================= */
+#cta {
+  background: linear-gradient(145deg, var(--terracota) 0%, #b87459 100%);
+  text-align: center;
+  padding-block: 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Círculos concêntricos decorativos */
+#cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='white' stroke-width='1' opacity='0.08'/%3E%3Ccircle cx='200' cy='200' r='120' fill='none' stroke='white' stroke-width='1' opacity='0.08'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='white' stroke-width='1' opacity='0.08'/%3E%3C/svg%3E") center / min(600px, 90vw) no-repeat;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+.cta-content .tag { color: rgba(255, 255, 255, 0.7); margin-bottom: 1rem; }
+.cta-content h2   { color: var(--branco); margin-bottom: 1rem; }
+.cta-content p    { color: rgba(255, 255, 255, 0.85); max-width: 480px; margin-inline: auto; margin-bottom: 2.5rem; }
+
+.cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+
+
+/* =============================================================================
+   14. CONTATO
+============================================================================= */
+#contato {
+  background: var(--creme);
+}
+
+.contato-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.contato-header .tag { margin-bottom: 1rem; }
+.contato-header h2   { margin-bottom: 1rem; }
+.contato-header p    { color: var(--marrom-mid); max-width: 480px; margin-inline: auto; }
+
+.contato-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.contato-card {
+  background: var(--branco);
+  border-radius: var(--radius-lg);
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(92, 61, 46, 0.07);
+  transition:
+    transform   0.3s var(--ease-smooth),
+    box-shadow  0.3s;
+}
+.contato-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 36px rgba(92, 61, 46, 0.12);
+}
+
+.contato-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--nude);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+.contato-card h4 {
+  font-family: var(--font-display);
+  font-size: 1.2rem;
+  margin-bottom: 0.4rem;
+}
+.contato-card p {
+  font-size: 0.85rem;
+  color: var(--marrom-mid);
+  margin-bottom: 1.2rem;
+}
+
+
+/* =============================================================================
+   15. FOOTER
+============================================================================= */
+footer {
+  background: var(--marrom);
+  color: rgba(242, 234, 224, 0.6);
+  padding: 2.5rem 0;
+  text-align: center;
+}
+
+.footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  color: var(--nude);
+}
+.footer-logo span { color: var(--terracota); }
+
+footer p { font-size: 0.78rem; }
+
+.footer-crp {
+  font-size: 0.72rem;
+  color: rgba(242, 234, 224, 0.4);
+  margin-top: 0.3rem;
+}
+
+
+/* =============================================================================
+   16. WHATSAPP FLUTUANTE
+============================================================================= */
+.whatsapp-float {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 200;
+  background: #25D366;
+  color: white;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+  transition:
+    transform   0.3s var(--ease-smooth),
+    box-shadow  0.3s;
+  animation: pulse-green 2.5s infinite;
+}
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
+  animation: none;
+}
+
+@keyframes pulse-green {
+  0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.40); }
+  50%       { box-shadow: 0 4px 36px rgba(37, 211, 102, 0.65); }
+}
+
+
+/* =============================================================================
+   17. BARRA DE PROGRESSO DE SCROLL
+============================================================================= */
+.progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--terracota), var(--salvia));
+  z-index: 200;
+  width: 0%;
+  transition: width 0.1s linear;
+}
+
+
+/* =============================================================================
+   18. RESPONSIVIDADE — TABLET (≥ 640px)
+============================================================================= */
+@media (min-width: 640px) {
+  .publico-cards  { grid-template-columns: repeat(2, 1fr); }
+  .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
+  .contato-grid   { grid-template-columns: repeat(2, 1fr); }
+}
+
+
+/* =============================================================================
+   19. RESPONSIVIDADE — DESKTOP (≥ 900px)
+============================================================================= */
+@media (min-width: 900px) {
+  /* Navbar: mostra links, esconde hamburguer */
+  .nav-links  { display: flex; }
+  .hamburger  { display: none; }
+
+  /* Hero: layout de duas colunas */
+  #hero {
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    min-height: 100svh;
+  }
+  .hero-visual      { justify-content: flex-end; }
+  .hero-photo-wrap  { width: 340px; }
+
+  /* Sobre: duas colunas assimétricas */
+  .sobre-grid { grid-template-columns: 1fr 1.2fr; }
+
+  /* Grids de 3 colunas */
+  .publico-cards    { grid-template-columns: repeat(3, 1fr); }
+  .contato-grid     { grid-template-columns: repeat(3, 1fr); }
+}
+
+
+/* =============================================================================
+   20. ANIMAÇÕES — estado inicial para elementos com data-animate
+       (alternativa ao AOS para elementos simples)
+============================================================================= */
+[data-animate] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity   0.7s var(--ease-smooth),
+    transform 0.7s var(--ease-smooth);
+}
+[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
