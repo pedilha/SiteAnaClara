@@ -6,945 +6,32 @@
   <meta name="description" content="Ana Clara Tomaz — Psicóloga. Acompanhamento psicológico para mulheres que desejam se conhecer melhor e cuidar da saúde emocional." />
   <title>Ana Clara Tomaz | Psicóloga</title>
 
-  <!-- Google Fonts: Cormorant Garamond (display) + DM Sans (corpo) -->
+  <!-- ── Fontes ─────────────────────────────────────────────────────────── -->
+  <!-- Cormorant Garamond: títulos elegantes / DM Sans: corpo legível -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
 
-  <!-- AOS — Animate On Scroll -->
+  <!-- ── AOS: animações ao scroll ───────────────────────────────────────── -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
-  <style>
-    /* =========================================================
-       DESIGN TOKENS — paleta, tipografia e espaçamentos globais
-       ========================================================= */
-    :root {
-      --nude:       #F2EAE0;   /* fundo principal */
-      --nude-dark:  #E8DDD0;   /* fundo alternativo */
-      --terracota:  #C4896A;   /* acento quente */
-      --salvia:     #8FA88A;   /* acento verde */
-      --marrom:     #5C3D2E;   /* texto principal */
-      --marrom-mid: #7A5544;   /* texto secundário */
-      --creme:      #FBF7F2;   /* superfícies leves */
-      --branco:     #FFFFFF;
-
-      --font-display: 'Cormorant Garamond', Georgia, serif;
-      --font-body:    'DM Sans', sans-serif;
-
-      --radius-lg: 2rem;
-      --radius-sm: 0.75rem;
-      --max-w: 1100px;
-
-      --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-    }
-
-    /* =========================================================
-       RESET & BASE
-       ========================================================= */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      background: var(--nude);
-      color: var(--marrom);
-      font-family: var(--font-body);
-      font-weight: 300;
-      font-size: 16px;
-      line-height: 1.7;
-      overflow-x: hidden;
-    }
-
-    img { max-width: 100%; display: block; }
-
-    a { color: inherit; text-decoration: none; }
-
-    /* Cursor customizado sutil */
-    body { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23C4896A' opacity='0.7'/%3E%3C/svg%3E") 10 10, auto; }
-
-    /* =========================================================
-       TIPOGRAFIA GLOBAL
-       ========================================================= */
-    h1, h2, h3, h4 {
-      font-family: var(--font-display);
-      font-weight: 400;
-      line-height: 1.15;
-      color: var(--marrom);
-    }
-
-    h1 { font-size: clamp(2.8rem, 8vw, 5.5rem); }
-    h2 { font-size: clamp(2rem, 5vw, 3.2rem); }
-    h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
-
-    p { font-size: clamp(0.95rem, 2.5vw, 1.05rem); }
-
-    .tag {
-      font-family: var(--font-body);
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--terracota);
-    }
-
-    /* =========================================================
-       LAYOUT HELPERS
-       ========================================================= */
-    .container {
-      width: 100%;
-      max-width: var(--max-w);
-      margin-inline: auto;
-      padding-inline: 1.5rem;
-    }
-
-    section { padding-block: 5rem; }
-
-    /* =========================================================
-       BOTÕES
-       ========================================================= */
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.6rem;
-      font-family: var(--font-body);
-      font-size: 0.9rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      padding: 0.85rem 2rem;
-      border-radius: 100px;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth);
-    }
-
-    .btn-primary {
-      background: var(--terracota);
-      color: var(--branco);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(196, 137, 106, 0.4);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--marrom);
-      border: 1.5px solid var(--marrom);
-    }
-
-    .btn-outline:hover {
-      background: var(--marrom);
-      color: var(--branco);
-      transform: translateY(-2px);
-    }
-
-    /* =========================================================
-       NAVBAR
-       ========================================================= */
-    #navbar {
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 100;
-      padding: 1.2rem 0;
-      transition: background 0.4s, box-shadow 0.4s;
-    }
-
-    #navbar.scrolled {
-      background: rgba(242, 234, 224, 0.92);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 2px 24px rgba(92, 61, 46, 0.08);
-    }
-
-    .nav-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .nav-logo {
-      font-family: var(--font-display);
-      font-size: 1.3rem;
-      font-weight: 400;
-      color: var(--marrom);
-      letter-spacing: 0.02em;
-    }
-
-    .nav-logo span { color: var(--terracota); }
-
-    .nav-links {
-      display: none; /* mobile: escondido; desktop: flex */
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.85rem;
-      font-weight: 400;
-      letter-spacing: 0.05em;
-      color: var(--marrom-mid);
-      transition: color 0.2s;
-    }
-
-    .nav-links a:hover { color: var(--terracota); }
-
-    /* Hamburguer */
-    .hamburger {
-      display: flex;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-
-    .hamburger span {
-      display: block;
-      width: 24px; height: 2px;
-      background: var(--marrom);
-      border-radius: 2px;
-      transition: transform 0.3s, opacity 0.3s;
-    }
-
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    /* Menu mobile overlay */
-    .mobile-menu {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: var(--nude);
-      z-index: 99;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 2.5rem;
-    }
-
-    .mobile-menu.open { display: flex; }
-
-    .mobile-menu a {
-      font-family: var(--font-display);
-      font-size: 2.2rem;
-      color: var(--marrom);
-      transition: color 0.2s;
-    }
-
-    .mobile-menu a:hover { color: var(--terracota); }
-
-    /* =========================================================
-       HERO
-       ========================================================= */
-    #hero {
-      min-height: 100svh;
-      padding-top: 7rem;
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      align-items: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Ornamento de fundo — círculo orgânico */
-    #hero::before {
-      content: '';
-      position: absolute;
-      top: -10%;
-      right: -20%;
-      width: min(70vw, 600px);
-      height: min(70vw, 600px);
-      border-radius: 60% 40% 55% 45% / 50% 55% 45% 50%;
-      background: radial-gradient(ellipse at center, rgba(196,137,106,0.12) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    #hero::after {
-      content: '';
-      position: absolute;
-      bottom: -5%;
-      left: -15%;
-      width: min(50vw, 400px);
-      height: min(50vw, 400px);
-      border-radius: 50%;
-      background: radial-gradient(ellipse at center, rgba(143,168,138,0.15) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero-text { position: relative; z-index: 1; }
-
-    .hero-text .tag { margin-bottom: 1.2rem; }
-
-    .hero-title {
-      margin-bottom: 1.5rem;
-    }
-
-    .hero-title em {
-      font-style: italic;
-      color: var(--terracota);
-    }
-
-    .hero-sub {
-      max-width: 480px;
-      color: var(--marrom-mid);
-      margin-bottom: 2.5rem;
-    }
-
-    .hero-cta-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      align-items: center;
-    }
-
-    /* Foto hero */
-    .hero-visual {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      justify-content: center;
-    }
-
-    .hero-photo-wrap {
-      position: relative;
-      width: min(320px, 80vw);
-    }
-
-    /* Placeholder elegante para foto */
-    .photo-placeholder {
-      width: 100%;
-      aspect-ratio: 3/4;
-      border-radius: var(--radius-lg);
-      background: linear-gradient(145deg, var(--nude-dark) 0%, #ddd0c4 100%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      color: var(--marrom-mid);
-      font-size: 0.8rem;
-      letter-spacing: 0.08em;
-      text-align: center;
-      padding: 1rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* Para inserir foto real: substitua .photo-placeholder por <img src="foto.jpg" ...> */
-    .photo-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Ccircle cx='40' cy='30' r='18' fill='%23C4896A' opacity='0.3'/%3E%3Cellipse cx='40' cy='70' rx='28' ry='20' fill='%23C4896A' opacity='0.2'/%3E%3C/svg%3E") center 30% / 80px no-repeat;
-    }
-
-    .photo-icon {
-      font-size: 3rem;
-      opacity: 0.4;
-    }
-
-    .photo-label {
-      opacity: 0.6;
-      font-family: var(--font-body);
-    }
-
-    /* Decoração flutuante */
-    .hero-badge {
-      position: absolute;
-      bottom: -1rem;
-      left: -2rem;
-      background: var(--branco);
-      border-radius: var(--radius-sm);
-      padding: 0.9rem 1.2rem;
-      box-shadow: 0 8px 32px rgba(92,61,46,0.12);
-      font-size: 0.78rem;
-      color: var(--marrom-mid);
-      max-width: 160px;
-      line-height: 1.4;
-    }
-
-    .hero-badge strong {
-      display: block;
-      font-size: 1rem;
-      color: var(--marrom);
-      font-family: var(--font-display);
-    }
-
-    /* Linha decorativa */
-    .hero-line {
-      position: absolute;
-      top: 2rem;
-      right: -1.5rem;
-      width: 3px;
-      height: 80px;
-      background: linear-gradient(to bottom, var(--terracota), transparent);
-      border-radius: 2px;
-    }
-
-    /* =========================================================
-       SOBRE
-       ========================================================= */
-    #sobre {
-      background: var(--creme);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #sobre::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0;
-      width: 4px; height: 100%;
-      background: linear-gradient(to bottom, var(--terracota), var(--salvia));
-    }
-
-    .sobre-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 3rem;
-      align-items: center;
-    }
-
-    .sobre-foto-wrap {
-      position: relative;
-    }
-
-    .sobre-foto {
-      width: 100%;
-      max-width: 380px;
-      aspect-ratio: 1/1.1;
-      border-radius: var(--radius-lg) var(--radius-lg) var(--radius-lg) 0;
-      background: linear-gradient(135deg, var(--nude-dark) 0%, #d4c5b5 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--marrom-mid);
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-align: center;
-      flex-direction: column;
-      gap: 0.5rem;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .sobre-foto::after {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 50%;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='40' r='22' fill='%23C4896A' opacity='0.2'/%3E%3Cellipse cx='50' cy='85' rx='35' ry='25' fill='%23C4896A' opacity='0.15'/%3E%3C/svg%3E") center 40% / 80px no-repeat;
-    }
-
-    /* Elemento gráfico decorativo */
-    .sobre-deco {
-      position: absolute;
-      bottom: -1.5rem;
-      right: -1.5rem;
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      border: 2px solid var(--salvia);
-      opacity: 0.4;
-    }
-
-    .sobre-content .tag { margin-bottom: 1rem; }
-
-    .sobre-content h2 { margin-bottom: 1.5rem; }
-
-    .sobre-content h2 em { font-style: italic; color: var(--terracota); }
-
-    .sobre-content p { color: var(--marrom-mid); margin-bottom: 1rem; }
-
-    /* Cards de formação */
-    .formacao-cards {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-top: 2rem;
-    }
-
-    .formacao-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 1rem;
-      background: var(--branco);
-      border-radius: var(--radius-sm);
-      padding: 1rem 1.2rem;
-      box-shadow: 0 2px 12px rgba(92,61,46,0.07);
-    }
-
-    .formacao-icon {
-      font-size: 1.4rem;
-      flex-shrink: 0;
-      margin-top: 0.1rem;
-    }
-
-    .formacao-item strong {
-      display: block;
-      font-size: 0.9rem;
-      color: var(--marrom);
-      margin-bottom: 0.2rem;
-    }
-
-    .formacao-item span {
-      font-size: 0.8rem;
-      color: var(--marrom-mid);
-    }
-
-    /* =========================================================
-       PÚBLICO ATENDIDO
-       ========================================================= */
-    #publico {
-      background: var(--nude);
-      text-align: center;
-    }
-
-    .publico-header .tag { margin-bottom: 1rem; }
-    .publico-header h2 { margin-bottom: 1rem; }
-    .publico-header p {
-      max-width: 520px;
-      margin-inline: auto;
-      color: var(--marrom-mid);
-      margin-bottom: 3rem;
-    }
-
-    .publico-cards {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .publico-card {
-      background: var(--creme);
-      border-radius: var(--radius-lg);
-      padding: 2rem 1.5rem;
-      position: relative;
-      overflow: hidden;
-      transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s;
-    }
-
-    .publico-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(92,61,46,0.1);
-    }
-
-    .publico-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 4px;
-      background: linear-gradient(90deg, var(--terracota), var(--salvia));
-    }
-
-    .card-emoji { font-size: 2.5rem; margin-bottom: 1rem; }
-
-    .publico-card h3 {
-      margin-bottom: 0.7rem;
-      font-size: 1.4rem;
-    }
-
-    .publico-card p {
-      font-size: 0.9rem;
-      color: var(--marrom-mid);
-    }
-
-    /* =========================================================
-       BENEFÍCIOS
-       ========================================================= */
-    #beneficios {
-      background: var(--marrom);
-      color: var(--nude);
-      position: relative;
-      overflow: hidden;
-    }
-
-    #beneficios::before {
-      content: '';
-      position: absolute;
-      top: -30%;
-      right: -20%;
-      width: 60vw;
-      height: 60vw;
-      border-radius: 50%;
-      background: radial-gradient(ellipse, rgba(196,137,106,0.15) 0%, transparent 65%);
-      pointer-events: none;
-    }
-
-    .beneficios-header { text-align: center; margin-bottom: 3.5rem; }
-    .beneficios-header .tag { color: var(--terracota); margin-bottom: 1rem; }
-    .beneficios-header h2 { color: var(--nude); margin-bottom: 1rem; }
-    .beneficios-header h2 em { color: var(--terracota); font-style: italic; }
-    .beneficios-header p { color: rgba(242,234,224,0.7); max-width: 500px; margin-inline: auto; }
-
-    .beneficios-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .beneficio-item {
-      display: flex;
-      gap: 1.2rem;
-      align-items: flex-start;
-      padding: 1.5rem;
-      border-radius: var(--radius-sm);
-      background: rgba(255,255,255,0.05);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: background 0.3s, transform 0.3s;
-    }
-
-    .beneficio-item:hover {
-      background: rgba(196,137,106,0.12);
-      transform: translateX(4px);
-    }
-
-    .beneficio-num {
-      font-family: var(--font-display);
-      font-size: 2rem;
-      font-weight: 300;
-      color: var(--terracota);
-      line-height: 1;
-      flex-shrink: 0;
-      width: 2.5rem;
-    }
-
-    .beneficio-item h4 {
-      color: var(--nude);
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      margin-bottom: 0.3rem;
-    }
-
-    .beneficio-item p {
-      color: rgba(242,234,224,0.65);
-      font-size: 0.88rem;
-    }
-
-    /* =========================================================
-       ABORDAGEM / QUOTE
-       ========================================================= */
-    #abordagem {
-      background: var(--nude-dark);
-      text-align: center;
-    }
-
-    .quote-block {
-      max-width: 700px;
-      margin-inline: auto;
-      position: relative;
-    }
-
-    .quote-block::before {
-      content: '"';
-      font-family: var(--font-display);
-      font-size: 8rem;
-      color: var(--terracota);
-      opacity: 0.2;
-      position: absolute;
-      top: -2rem;
-      left: -1rem;
-      line-height: 1;
-    }
-
-    .quote-text {
-      font-family: var(--font-display);
-      font-size: clamp(1.4rem, 4vw, 2rem);
-      font-style: italic;
-      color: var(--marrom);
-      line-height: 1.5;
-      margin-bottom: 1.5rem;
-    }
-
-    .quote-author {
-      font-size: 0.85rem;
-      color: var(--marrom-mid);
-      letter-spacing: 0.08em;
-    }
-
-    .abordagem-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.7rem;
-      justify-content: center;
-      margin-top: 3rem;
-    }
-
-    .pill {
-      background: var(--branco);
-      border-radius: 100px;
-      padding: 0.5rem 1.2rem;
-      font-size: 0.8rem;
-      color: var(--marrom-mid);
-      border: 1px solid rgba(92,61,46,0.1);
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .pill:hover {
-      background: var(--terracota);
-      color: var(--branco);
-    }
-
-    /* =========================================================
-       CTA PRINCIPAL
-       ========================================================= */
-    #cta {
-      background: linear-gradient(145deg, var(--terracota) 0%, #b87459 100%);
-      text-align: center;
-      padding-block: 6rem;
-      position: relative;
-      overflow: hidden;
-    }
-
-    #cta::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Ccircle cx='200' cy='200' r='180' fill='none' stroke='white' stroke-width='1' opacity='0.08'/%3E%3Ccircle cx='200' cy='200' r='120' fill='none' stroke='white' stroke-width='1' opacity='0.08'/%3E%3Ccircle cx='200' cy='200' r='60' fill='none' stroke='white' stroke-width='1' opacity='0.08'/%3E%3C/svg%3E") center / min(600px, 90vw) no-repeat;
-    }
-
-    .cta-content { position: relative; z-index: 1; }
-
-    .cta-content .tag { color: rgba(255,255,255,0.7); margin-bottom: 1rem; }
-
-    .cta-content h2 {
-      color: var(--branco);
-      margin-bottom: 1rem;
-    }
-
-    .cta-content p {
-      color: rgba(255,255,255,0.85);
-      max-width: 480px;
-      margin-inline: auto;
-      margin-bottom: 2.5rem;
-    }
-
-    .cta-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      justify-content: center;
-    }
-
-    .btn-cta-white {
-      background: var(--branco);
-      color: var(--terracota);
-      font-weight: 500;
-    }
-
-    .btn-cta-white:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 32px rgba(0,0,0,0.15);
-    }
-
-    .btn-cta-ghost {
-      background: transparent;
-      color: var(--branco);
-      border: 1.5px solid rgba(255,255,255,0.6);
-    }
-
-    .btn-cta-ghost:hover {
-      background: rgba(255,255,255,0.15);
-      transform: translateY(-2px);
-    }
-
-    /* =========================================================
-       CONTATO
-       ========================================================= */
-    #contato {
-      background: var(--creme);
-    }
-
-    .contato-header { text-align: center; margin-bottom: 3rem; }
-    .contato-header .tag { margin-bottom: 1rem; }
-    .contato-header h2 { margin-bottom: 1rem; }
-    .contato-header p { color: var(--marrom-mid); max-width: 480px; margin-inline: auto; }
-
-    .contato-grid {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 1.5rem;
-    }
-
-    .contato-card {
-      background: var(--branco);
-      border-radius: var(--radius-lg);
-      padding: 2rem;
-      text-align: center;
-      box-shadow: 0 4px 20px rgba(92,61,46,0.07);
-      transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s;
-    }
-
-    .contato-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 12px 36px rgba(92,61,46,0.12);
-    }
-
-    .contato-icon {
-      width: 56px; height: 56px;
-      background: var(--nude);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-inline: auto;
-      margin-bottom: 1rem;
-      font-size: 1.5rem;
-    }
-
-    .contato-card h4 {
-      font-family: var(--font-display);
-      font-size: 1.2rem;
-      margin-bottom: 0.4rem;
-    }
-
-    .contato-card p {
-      font-size: 0.85rem;
-      color: var(--marrom-mid);
-      margin-bottom: 1.2rem;
-    }
-
-    /* =========================================================
-       FOOTER
-       ========================================================= */
-    footer {
-      background: var(--marrom);
-      color: rgba(242,234,224,0.6);
-      padding: 2.5rem 0;
-      text-align: center;
-    }
-
-    .footer-inner {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 1rem;
-    }
-
-    .footer-logo {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      color: var(--nude);
-    }
-
-    .footer-logo span { color: var(--terracota); }
-
-    footer p { font-size: 0.78rem; }
-
-    .footer-crp {
-      font-size: 0.72rem;
-      color: rgba(242,234,224,0.4);
-      margin-top: 0.3rem;
-    }
-
-    /* =========================================================
-       WHATSAPP FLOATING BUTTON
-       ========================================================= */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 1.5rem;
-      right: 1.5rem;
-      z-index: 200;
-      background: #25D366;
-      color: white;
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
-      transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s;
-      animation: pulse-green 2.5s infinite;
-    }
-
-    .whatsapp-float:hover {
-      transform: scale(1.1);
-      box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
-      animation: none;
-    }
-
-    @keyframes pulse-green {
-      0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4); }
-      50%       { box-shadow: 0 4px 36px rgba(37, 211, 102, 0.65); }
-    }
-
-    /* =========================================================
-       SCROLL PROGRESS BAR
-       ========================================================= */
-    .progress-bar {
-      position: fixed;
-      top: 0; left: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--terracota), var(--salvia));
-      z-index: 200;
-      width: 0%;
-      transition: width 0.1s linear;
-    }
-
-    /* =========================================================
-       RESPONSIVE — TABLET (≥ 640px)
-       ========================================================= */
-    @media (min-width: 640px) {
-      .publico-cards { grid-template-columns: repeat(2, 1fr); }
-      .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
-      .contato-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    /* =========================================================
-       RESPONSIVE — DESKTOP (≥ 900px)
-       ========================================================= */
-    @media (min-width: 900px) {
-      .nav-links { display: flex; }
-      .hamburger { display: none; }
-
-      #hero {
-        grid-template-columns: 1fr 1fr;
-        gap: 4rem;
-        min-height: 100svh;
-      }
-
-      .hero-visual { justify-content: flex-end; }
-
-      .hero-photo-wrap { width: 340px; }
-
-      .sobre-grid { grid-template-columns: 1fr 1.2fr; }
-
-      .publico-cards { grid-template-columns: repeat(3, 1fr); }
-
-      .beneficios-grid { grid-template-columns: repeat(2, 1fr); }
-
-      .contato-grid { grid-template-columns: repeat(3, 1fr); }
-    }
-
-    /* =========================================================
-       ANIMAÇÕES BASE — estado inicial para JS fade-in manual
-       ========================================================= */
-    [data-animate] {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.7s var(--ease-smooth), transform 0.7s var(--ease-smooth);
-    }
-
-    [data-animate].visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  </style>
+  <!-- ── Estilos do site ────────────────────────────────────────────────── -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- Barra de progresso de scroll -->
+  <!-- ══════════════════════════════════════════════════════════════════════
+       BARRA DE PROGRESSO DE SCROLL
+  ══════════════════════════════════════════════════════════════════════ -->
   <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
 
-  <!-- =========================================================
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        NAVBAR
-       ========================================================= -->
+  ══════════════════════════════════════════════════════════════════════ -->
   <nav id="navbar" role="navigation" aria-label="Navegação principal">
     <div class="container nav-inner">
+
       <a href="#hero" class="nav-logo">Ana Clara <span>Tomaz</span></a>
 
       <ul class="nav-links" role="list">
@@ -954,31 +41,39 @@
         <li><a href="#contato">Contato</a></li>
       </ul>
 
-      <!-- Botão agendar (desktop) -->
+      <!-- Botão CTA — aparece no navbar após scroll (via JS) -->
       <a href="#cta" class="btn btn-primary" style="display:none" id="navCta">Agendar</a>
 
-      <!-- Hamburger (mobile) -->
+      <!-- Hamburguer — visível apenas no mobile -->
       <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
-        <span></span><span></span><span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </button>
+
     </div>
   </nav>
 
-  <!-- Menu mobile overlay -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       MENU MOBILE (overlay)
+  ══════════════════════════════════════════════════════════════════════ -->
   <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
-    <a href="#sobre"      class="mobile-link">Sobre</a>
-    <a href="#publico"    class="mobile-link">Para quem</a>
-    <a href="#beneficios" class="mobile-link">Benefícios</a>
-    <a href="#contato"    class="mobile-link">Contato</a>
-    <a href="#cta" class="btn btn-primary mobile-link">Agendar consulta</a>
+    <a href="#sobre"       class="mobile-link">Sobre</a>
+    <a href="#publico"     class="mobile-link">Para quem</a>
+    <a href="#beneficios"  class="mobile-link">Benefícios</a>
+    <a href="#contato"     class="mobile-link">Contato</a>
+    <a href="#cta"         class="btn btn-primary mobile-link">Agendar consulta</a>
   </div>
 
-  <!-- =========================================================
-       HERO
-       ========================================================= -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       HERO — apresentação principal
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="hero" aria-labelledby="hero-title">
     <div class="container" style="display:contents;">
 
+      <!-- Coluna de texto -->
       <div class="hero-text container" data-aos="fade-up" data-aos-duration="800">
         <p class="tag">Psicóloga · Bem-estar Emocional</p>
 
@@ -987,13 +82,14 @@
         </h1>
 
         <p class="hero-sub">
-          Acompanhamento psicológico humanizado para mulheres que desejam se conhecer mais profundamente e cuidar da própria saúde emocional — com acolhimento, escuta e presença.
+          Acompanhamento psicológico humanizado para mulheres que desejam se conhecer
+          mais profundamente e cuidar da própria saúde emocional — com acolhimento,
+          escuta e presença.
         </p>
 
         <div class="hero-cta-group">
           <a href="#cta" class="btn btn-primary">
             Quero começar
-            <!-- Seta SVG inline -->
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -1002,24 +98,28 @@
         </div>
       </div>
 
-      <!-- Foto / visual hero -->
+      <!-- Coluna da foto -->
       <div class="hero-visual" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
         <div class="hero-photo-wrap">
 
-          <!--
-            FOTO DA PSICÓLOGA — HERO
-            Substitua o bloco .photo-placeholder abaixo por:
-            <img src="foto-hero.jpg" alt="Ana Clara Carneiro, psicóloga" style="width:100%;aspect-ratio:3/4;border-radius:var(--radius-lg);object-fit:cover;" />
-          -->
-            <img src="ana clara com merito.jpeg" alt="Ana Clara Tomaz, psicóloga" style="width:100%;aspect-ratio:3/4;border-radius:var(--radius-lg);object-fit:cover;" />
+          <!-- FOTO HERO ─────────────────────────────────────────────────
+               Arquivo: img/ana-clara-merito.jpeg
+               Proporção recomendada: 3:4 (vertical)
+               Para trocar: altere o src abaixo.
+          ──────────────────────────────────────────────────────────────── -->
+          <img
+            src="img/ana-clara-merito.jpeg"
+            alt="Ana Clara Tomaz, psicóloga, segurando o diploma com mérito prata"
+            style="width:100%; aspect-ratio:3/4; border-radius:var(--radius-lg); object-fit:cover;"
+          />
 
-          <!-- Badge flutuante -->
+          <!-- Badge flutuante com destaque acadêmico -->
           <div class="hero-badge" aria-label="Destaque acadêmico">
             <strong>🥈 Mérito Prata</strong>
             Formada com distinção — PUC-GO, 2025
           </div>
 
-          <!-- Linha decorativa -->
+          <!-- Linha decorativa vertical -->
           <div class="hero-line" aria-hidden="true"></div>
         </div>
       </div>
@@ -1027,43 +127,57 @@
     </div>
   </section>
 
-  <!-- =========================================================
-       SOBRE
-       ========================================================= -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SOBRE — quem é Ana Clara
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="sobre" aria-labelledby="sobre-title">
     <div class="container">
       <div class="sobre-grid">
 
-        <!-- Foto secundária -->
+        <!-- Foto da seção Sobre -->
         <div class="sobre-foto-wrap" data-aos="fade-right" data-aos-duration="800">
-          <!--
-            FOTO SOBRE — substitua por:
-            <img src="foto-sobre.jpg" alt="Ana Clara em consultório" class="sobre-foto" style="object-fit:cover;" />
-          -->
-            <img src="ana clara formatura.jpeg" alt="Ana Clara em consultório" class="sobre-foto" style="object-fit:cover;" />
 
-            <div class="sobre-deco" aria-hidden="true"></div>
+          <!-- FOTO SOBRE ────────────────────────────────────────────────
+               Arquivo: img/ana-clara-formatura.jpeg
+               Proporção recomendada: 1:1.1 (quase quadrada, levemente vertical)
+          ──────────────────────────────────────────────────────────────── -->
+          <img
+            src="img/ana-clara-formatura.jpeg"
+            alt="Ana Clara Tomaz na formatura de Psicologia pela PUC-GO"
+            class="sobre-foto"
+          />
+
+          <!-- Círculo decorativo atrás da foto -->
+          <div class="sobre-deco" aria-hidden="true"></div>
         </div>
 
-        <!-- Texto sobre -->
+        <!-- Texto sobre a profissional -->
         <div class="sobre-content" data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
           <p class="tag">Quem sou eu</p>
+
           <h2 id="sobre-title">
             Presença que<br><em>acolhe</em> e transforma
           </h2>
 
           <p>
-            Olá! Sou Ana Clara Tomaz, psicóloga formada com mérito acadêmico pela PUC-GO (2025). Desde a graduação, me dedico a compreender o universo emocional feminino — suas dores, potências e a beleza do autoconhecimento.
+            Olá! Sou Ana Clara Tomaz, psicóloga formada com mérito acadêmico pela PUC-GO (2025).
+            Desde a graduação, me dedico a compreender o universo emocional feminino —
+            suas dores, potências e a beleza do autoconhecimento.
           </p>
           <p>
-            Acredito que cada mulher carrega em si uma história única, e que o processo terapêutico é um espaço sagrado de escuta, sem julgamentos. Minha abordagem é humanizada, empática e orientada para o seu crescimento pessoal.
+            Acredito que cada mulher carrega em si uma história única, e que o processo
+            terapêutico é um espaço sagrado de escuta, sem julgamentos. Minha abordagem
+            é humanizada, empática e orientada para o seu crescimento pessoal.
           </p>
           <p>
-            Atualmente com registro profissional em andamento (CRP), atendo de forma ética e comprometida, sempre guiada pelo Código de Ética dos Psicólogos.
+            Atualmente com registro profissional em andamento (CRP), atendo de forma
+            ética e comprometida, sempre guiada pelo Código de Ética dos Psicólogos.
           </p>
 
           <!-- Cards de formação -->
           <div class="formacao-cards">
+
             <div class="formacao-item">
               <div class="formacao-icon" aria-hidden="true">🎓</div>
               <div>
@@ -1071,6 +185,7 @@
                 <span>PUC-GO · 2025 · Mérito Acadêmico Prata</span>
               </div>
             </div>
+
             <div class="formacao-item">
               <div class="formacao-icon" aria-hidden="true">📋</div>
               <div>
@@ -1078,6 +193,7 @@
                 <span>CRP em andamento — atuação ética e comprometida</span>
               </div>
             </div>
+
             <div class="formacao-item">
               <div class="formacao-icon" aria-hidden="true">💡</div>
               <div>
@@ -1085,6 +201,7 @@
                 <span>Humanista · Fenomenológica · Centrada na pessoa</span>
               </div>
             </div>
+
           </div>
         </div>
 
@@ -1092,11 +209,13 @@
     </div>
   </section>
 
-  <!-- =========================================================
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        PÚBLICO ATENDIDO
-       ========================================================= -->
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="publico" aria-labelledby="publico-title">
     <div class="container">
+
       <header class="publico-header" data-aos="fade-up">
         <p class="tag">Para quem é</p>
         <h2 id="publico-title">Este espaço foi pensado<br><em>para você</em></h2>
@@ -1127,11 +246,13 @@
     </div>
   </section>
 
-  <!-- =========================================================
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        BENEFÍCIOS
-       ========================================================= -->
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="beneficios" aria-labelledby="beneficios-title">
     <div class="container">
+
       <header class="beneficios-header" data-aos="fade-up">
         <p class="tag">Por que investir em você</p>
         <h2 id="beneficios-title">O que muda com o<br><em>acompanhamento psicológico</em></h2>
@@ -1192,17 +313,24 @@
     </div>
   </section>
 
-  <!-- =========================================================
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        ABORDAGEM / QUOTE
-       ========================================================= -->
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="abordagem" aria-labelledby="abordagem-label">
     <div class="container">
       <div class="quote-block" data-aos="fade-up">
+
         <p id="abordagem-label" class="tag" style="margin-bottom:2rem;">Minha filosofia</p>
+
         <blockquote class="quote-text">
           "Cuidar da saúde mental não é um luxo — é um ato de amor próprio e de coragem. Você merece esse espaço."
         </blockquote>
-        <div class="abordagem-pills" role="list" aria-label="Abordagens e temas">
+
+        <p class="quote-author">— Ana Clara Tomaz, Psicóloga</p>
+
+        <!-- Pills de temas — clicáveis para seleção -->
+        <div class="abordagem-pills" role="list" aria-label="Abordagens e temas trabalhados">
           <span class="pill" role="listitem">Escuta ativa</span>
           <span class="pill" role="listitem">Vínculo terapêutico</span>
           <span class="pill" role="listitem">Ética profissional</span>
@@ -1214,44 +342,58 @@
           <span class="pill" role="listitem">Relacionamentos</span>
           <span class="pill" role="listitem">Saúde emocional</span>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- =========================================================
-       CTA PRINCIPAL
-       ========================================================= -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CTA PRINCIPAL — chamada para ação
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="cta" aria-labelledby="cta-title">
     <div class="container cta-content" data-aos="zoom-in" data-aos-duration="700">
+
       <p class="tag">Primeiro passo</p>
       <h2 id="cta-title">Pronta para começar<br>sua jornada?</h2>
       <p>
-        Entre em contato e dê o primeiro passo em direção ao seu bem-estar emocional. Sem pressa, sem julgamento — no seu tempo.
+        Entre em contato e dê o primeiro passo em direção ao seu bem-estar emocional.
+        Sem pressa, sem julgamento — no seu tempo.
       </p>
+
       <div class="cta-buttons">
-        <!--
-          GOOGLE FORMS — substitua # pelo link real do seu formulário
-          Exemplo: href="https://forms.gle/SeuLinkAqui"
-        -->
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform?fbclid=PAdGRleAQcZ5lleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAafCvgpZWp2gWwHSV0dTLMwRomM51dQlqK8iQHiOGviF8Ehyx9_G6G2s0E4Vlw_aem_UPqq9gmACpTMbndcCCxPkw" target="_blank" rel="noopener noreferrer" class="btn btn-cta-white">
+
+        <!-- GOOGLE FORMS ───────────────────────────────────────────────── -->
+        <a
+          href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-cta-white"
+        >
           📋 Preencher formulário
         </a>
-        <!--
-          INSTAGRAM — substitua # pelo link real
-          Exemplo: href="https://instagram.com/anaclaracarneiro.psi"
-        -->
-        <a href="https://www.instagram.com/psianaclaratomaz/" target="_blank" rel="noopener noreferrer" class="btn btn-cta-ghost">
+
+        <!-- INSTAGRAM ──────────────────────────────────────────────────── -->
+        <a
+          href="https://www.instagram.com/psianaclaratomaz/"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-cta-ghost"
+        >
           📷 Ver no Instagram
         </a>
+
       </div>
     </div>
   </section>
 
-  <!-- =========================================================
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        CONTATO
-       ========================================================= -->
+  ══════════════════════════════════════════════════════════════════════ -->
   <section id="contato" aria-labelledby="contato-title">
     <div class="container">
+
       <header class="contato-header" data-aos="fade-up">
         <p class="tag">Vamos conversar</p>
         <h2 id="contato-title">Formas de me encontrar</h2>
@@ -1260,44 +402,45 @@
 
       <div class="contato-grid">
 
-        <!-- EMAIL -->
+        <!-- E-MAIL ─────────────────────────────────────────────────────── -->
+        <!-- Troque "seuemail@email.com" pelo e-mail profissional real      -->
         <div class="contato-card" data-aos="fade-up" data-aos-delay="0">
           <div class="contato-icon" aria-hidden="true">✉️</div>
           <h4>E-mail</h4>
           <p>Para dúvidas ou para iniciar uma conversa com mais tranquilidade.</p>
-          <!--
-            Substitua pelo e-mail profissional real:
-            href="mailto:anaclara@email.com"
-          -->
           <a href="mailto:seuemail@email.com" class="btn btn-outline" aria-label="Enviar e-mail para Ana Clara">
             Enviar e-mail
           </a>
         </div>
 
-        <!-- INSTAGRAM -->
+        <!-- INSTAGRAM ──────────────────────────────────────────────────── -->
         <div class="contato-card" data-aos="fade-up" data-aos-delay="100">
           <div class="contato-icon" aria-hidden="true">📸</div>
           <h4>Instagram</h4>
           <p>Acompanhe conteúdos sobre saúde mental, autoconhecimento e bem-estar.</p>
-          <!--
-            Substitua pelo link real do Instagram:
+          <a
             href="https://www.instagram.com/psianaclaratomaz/"
-          -->
-          <a href="https://www.instagram.com/psianaclaratomaz/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" aria-label="Visitar Instagram de Ana Clara Carneiro">
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-outline"
+            aria-label="Visitar Instagram de Ana Clara Tomaz"
+          >
             @psianaclaratomaz
           </a>
         </div>
 
-        <!-- FORMULÁRIO -->
+        <!-- FORMULÁRIO ─────────────────────────────────────────────────── -->
         <div class="contato-card" data-aos="fade-up" data-aos-delay="200">
           <div class="contato-icon" aria-hidden="true">📋</div>
           <h4>Formulário</h4>
           <p>Preencha rapidamente e entro em contato para agendar sua primeira sessão.</p>
-          <!--
-            Substitua pelo link real do Google Forms:
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform?fbclid=PAdGRleAQcZ5lleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAafCvgpZWp2gWwHSV0dTLMwRomM51dQlqK8iQHiOGviF8Ehyx9_G6G2s0E4Vlw_aem_UPqq9gmACpTMbndcCCxPkw"
-          -->
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform?fbclid=PAdGRleAQcZ5lleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA8xMjQwMjQ1NzQyODc0MTQAAafCvgpZWp2gWwHSV0dTLMwRomM51dQlqK8iQHiOGviF8Ehyx9_G6G2s0E4Vlw_aem_UPqq9gmACpTMbndcCCxPkw" target="_blank" rel="noopener noreferrer" class="btn btn-primary" aria-label="Acessar formulário de agendamento">
+          <a
+            href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            aria-label="Acessar formulário de agendamento"
+          >
             Agendar sessão
           </a>
         </div>
@@ -1306,9 +449,10 @@
     </div>
   </section>
 
-  <!-- =========================================================
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        FOOTER
-       ========================================================= -->
+  ══════════════════════════════════════════════════════════════════════ -->
   <footer>
     <div class="container footer-inner">
       <div class="footer-logo">Ana Clara <span>Tomaz</span></div>
@@ -1317,10 +461,11 @@
     </div>
   </footer>
 
-  <!-- Botão flutuante WhatsApp
-       Substitua o href pelo seu número real:
-       https://wa.me/5562981112485
-  -->
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       WHATSAPP FLUTUANTE
+       Troque o número: https://wa.me/55 + DDD + número (sem espaços)
+  ══════════════════════════════════════════════════════════════════════ -->
   <a
     href="https://wa.me/5562981112485"
     class="whatsapp-float"
@@ -1334,95 +479,10 @@
     </svg>
   </a>
 
-  <!-- AOS library -->
+
+  <!-- ── Scripts (no final do body para não bloquear o carregamento) ──── -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
-
-  <script>
-    // =========================================================
-    // INICIALIZAÇÃO — AOS (Animate on Scroll)
-    // =========================================================
-    AOS.init({
-      duration: 750,
-      easing: 'ease-out-cubic',
-      once: true,       // anima apenas uma vez ao rolar
-      offset: 60,       // inicia 60px antes do elemento entrar na tela
-      mirror: false
-    });
-
-    // =========================================================
-    // NAVBAR — adiciona classe "scrolled" ao rolar
-    // =========================================================
-    const navbar = document.getElementById('navbar');
-    const navCta = document.getElementById('navCta');
-
-    window.addEventListener('scroll', () => {
-      const scrolled = window.scrollY > 60;
-      navbar.classList.toggle('scrolled', scrolled);
-
-      // Mostra botão CTA no navbar após rolar um pouco
-      if (navCta) navCta.style.display = scrolled ? 'inline-flex' : 'none';
-    }, { passive: true });
-
-    // =========================================================
-    // BARRA DE PROGRESSO DE SCROLL
-    // =========================================================
-    const progressBar = document.getElementById('progressBar');
-
-    window.addEventListener('scroll', () => {
-      const total   = document.documentElement.scrollHeight - window.innerHeight;
-      const current = window.scrollY;
-      const pct     = total > 0 ? (current / total) * 100 : 0;
-      progressBar.style.width = pct + '%';
-    }, { passive: true });
-
-    // =========================================================
-    // MENU MOBILE — hamburger toggle
-    // =========================================================
-    const hamburger   = document.getElementById('hamburger');
-    const mobileMenu  = document.getElementById('mobileMenu');
-    const mobileLinks = document.querySelectorAll('.mobile-link');
-
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      hamburger.setAttribute('aria-expanded', isOpen);
-      // Impede scroll do body quando menu está aberto
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-
-    // Fecha menu ao clicar em qualquer link
-    mobileLinks.forEach(link => {
-      link.addEventListener('click', () => {
-        mobileMenu.classList.remove('open');
-        hamburger.classList.remove('open');
-        hamburger.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
-      });
-    });
-
-    // =========================================================
-    // SMOOTH SCROLL — para âncoras (fallback para browsers antigos)
-    // =========================================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    });
-
-    // =========================================================
-    // PILLS — efeito hover interativo (toggle de seleção)
-    // =========================================================
-    document.querySelectorAll('.pill').forEach(pill => {
-      pill.addEventListener('click', () => {
-        pill.style.background = pill.style.background ? '' : 'var(--terracota)';
-        pill.style.color      = pill.style.color      ? '' : 'white';
-      });
-    });
-  </script>
+  <script src="js/main.js"></script>
 
 </body>
 </html>
