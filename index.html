@@ -38,6 +38,8 @@
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#publico">Para quem</a></li>
         <li><a href="#beneficios">Benefícios</a></li>
+        <li><a href="#fotos">Eventos</a></li>
+        <li><a href="#faq">FAQ</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
 
@@ -62,6 +64,8 @@
     <a href="#sobre"       class="mobile-link">Sobre</a>
     <a href="#publico"     class="mobile-link">Para quem</a>
     <a href="#beneficios"  class="mobile-link">Benefícios</a>
+    <a href="#fotos"       class="mobile-link">Eventos</a>
+    <a href="#faq"         class="mobile-link">FAQ</a>
     <a href="#contato"     class="mobile-link">Contato</a>
     <a href="#cta"         class="btn btn-primary mobile-link">Agendar consulta</a>
   </div>
@@ -357,6 +361,129 @@
 
 
   <!-- ══════════════════════════════════════════════════════════════════════
+       FOTOS — EVENTOS E PALESTRAS
+       ─────────────────────────────────────────────────────────────────────
+       Como adicionar ou remover fotos:
+         • Cada slide é um bloco <figure class="carousel-slide"> abaixo.
+         • Troque o src="img/eventos/NOME.jpeg" pelo caminho da sua foto.
+         • Edite o <figcaption> com a legenda desejada.
+         • Para ADICIONAR: copie qualquer bloco <figure>...</figure> e cole
+           antes do comentário "FIM DOS SLIDES".
+         • Para REMOVER: apague o bloco <figure>...</figure> inteiro.
+         • O carrossel se ajusta automaticamente à quantidade de slides.
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section id="fotos" aria-labelledby="fotos-title">
+    <div class="container">
+
+      <header class="fotos-header" data-aos="fade-up">
+        <p class="tag">Presença e trajetória</p>
+        <h2 id="fotos-title">Eventos e <em>palestras</em></h2>
+        <p>Momentos que marcam minha jornada na psicologia e no cuidado com a saúde mental.</p>
+      </header>
+
+      <div class="carousel" data-aos="fade-up" data-aos-delay="100">
+
+        <!-- ÁREA DOS SLIDES ─────────────────────────────────────────── -->
+        <div class="carousel-track-wrap">
+          <div class="carousel-track" id="carouselTrack">
+
+            <!-- ╔══════════════════════════════════════════════════════╗
+                 ║  SLIDE 1 — substitua src e legenda                  ║
+                 ╚══════════════════════════════════════════════════════╝ -->
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/ana-clara-merito.jpeg" alt="Evento ou palestra" />
+              </div>
+              <figcaption>Merito academico</figcaption>
+            </figure>
+
+            <!-- ╔══════════════════════════════════════════════════════╗
+                 ║  SLIDE 2 — substitua src e legenda                  ║
+                 ╚══════════════════════════════════════════════════════╝ -->
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/ana-clara-professor.jpeg" alt="Evento ou palestra" />
+              </div>
+              <figcaption>Recebendo diploma do professor Flávio</figcaption>
+            </figure>
+
+            <!-- ╔══════════════════════════════════════════════════════╗
+                 ║  SLIDE 3 — substitua src e legenda                  ║
+                 ╚══════════════════════════════════════════════════════╝ -->
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/ana-simposio.png" alt="Evento ou palestra" />
+              </div>
+              <figcaption>Apresentação do simpósio</figcaption>
+            </figure>
+
+            <!-- FIM DOS SLIDES ──────────────────────────────────────── -->
+
+          </div>
+        </div>
+        <!-- ─────────────────────────────────────────────────────────── -->
+
+        <!-- Botões de navegação -->
+        <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Foto anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Próxima foto">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+
+        <!-- Dots indicadores -->
+        <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Navegar pelos slides"></div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       PERGUNTAS FREQUENTES
+  ══════════════════════════════════════════════════════════════════════ -->
+  <section id="faq" aria-labelledby="faq-title">
+    <div class="container">
+
+      <header class="faq-header" data-aos="fade-up">
+        <p class="tag">Dúvidas comuns</p>
+        <h2 id="faq-title">Perguntas <em>frequentes</em></h2>
+        <p>Algumas respostas para te ajudar antes do primeiro contato.</p>
+      </header>
+
+      <div class="faq-list">
+
+        <details class="faq-item" data-aos="fade-up" data-aos-delay="0">
+          <summary class="faq-question">Como funciona a primeira sessão?</summary>
+          <p class="faq-answer">A primeira sessão é um espaço de acolhimento e escuta. Conversamos sobre o que te trouxe até aqui, suas expectativas e como o processo terapêutico pode te ajudar. Não há roteiro fixo — é uma conversa leve e sem julgamentos.</p>
+        </details>
+
+        <details class="faq-item" data-aos="fade-up" data-aos-delay="80">
+          <summary class="faq-question">O atendimento é online, presencial ou os dois?</summary>
+          <p class="faq-answer">Atendo de forma online e presencial. A modalidade pode ser definida conforme sua preferência e disponibilidade. O atendimento online oferece toda a qualidade e sigilo da sessão presencial, com a comodidade de estar no seu ambiente.</p>
+        </details>
+
+        <details class="faq-item" data-aos="fade-up" data-aos-delay="160">
+          <summary class="faq-question">Com que frequência devo fazer as sessões?</summary>
+          <p class="faq-answer">O mais comum é uma sessão por semana, o que permite continuidade no processo terapêutico. Porém, a frequência ideal é definida juntas, de acordo com suas necessidades e rotina.</p>
+        </details>
+
+        <details class="faq-item" data-aos="fade-up" data-aos-delay="240">
+          <summary class="faq-question">As sessões são sigilosas?</summary>
+          <p class="faq-answer">Sim, absolutamente. O sigilo é um dos pilares da ética profissional da psicologia. Tudo o que é compartilhado nas sessões permanece entre nós, conforme o Código de Ética dos Psicólogos.</p>
+        </details>
+
+        <details class="faq-item" data-aos="fade-up" data-aos-delay="320">
+          <summary class="faq-question">Quanto tempo dura cada sessão?</summary>
+          <p class="faq-answer">Cada sessão tem duração de 50 minutos, que é o tempo padrão na psicologia clínica. Esse tempo é todo seu — para falar, sentir e refletir no seu próprio ritmo.</p>
+        </details>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ══════════════════════════════════════════════════════════════════════
        CONTATO
   ══════════════════════════════════════════════════════════════════════ -->
   <section id="contato" aria-labelledby="contato-title">
@@ -435,7 +562,7 @@
        Troque o número: https://wa.me/55 + DDD + número (sem espaços)
   ══════════════════════════════════════════════════════════════════════ -->
   <a
-    href="https://wa.me/5562981112485"
+    href="https://wa.me/5562981112485?text=Oii%20Ana%2C%20gostaria%20de%20iniciar%20acompanhamento%20psicol%C3%B3gico%20com%20voc%C3%AA!"
     class="whatsapp-float"
     target="_blank"
     rel="noopener noreferrer"
