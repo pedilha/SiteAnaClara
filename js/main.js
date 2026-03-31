@@ -130,6 +130,58 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
    Ao clicar em uma pill, ela alterna entre selecionada (terracota) e normal.
    Clicar novamente desfaz a seleção.
 ============================================================================= */
+/* =============================================================================
+   07. CARROSSEL DE FOTOS — Eventos e Palestras
+   Funciona automaticamente para qualquer quantidade de slides.
+   Para adicionar ou remover fotos, edite apenas o HTML (index.html).
+============================================================================= */
+(function () {
+  const track  = document.getElementById('carouselTrack');
+  const dotsEl = document.getElementById('carouselDots');
+  const btnPrev = document.getElementById('carouselPrev');
+  const btnNext = document.getElementById('carouselNext');
+
+  if (!track) return; // seção não existe na página
+
+  const slides = Array.from(track.querySelectorAll('.carousel-slide'));
+  const total  = slides.length;
+  let current  = 0;
+
+  if (total === 0) return;
+
+  // Cria um dot para cada slide
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.className  = 'carousel-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', 'Ir para foto ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsEl.appendChild(dot);
+  });
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = 'translateX(-' + current * 100 + '%)';
+
+    // Atualiza dots
+    dotsEl.querySelectorAll('.carousel-dot').forEach((dot, i) => {
+      dot.classList.toggle('active', i === current);
+    });
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+
+  // Swipe no touch (mobile)
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend',   e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+  });
+})();
+
+
 document.querySelectorAll('.pill').forEach(pill => {
   pill.addEventListener('click', () => {
     const estaSelecionada = pill.dataset.selected === 'true';

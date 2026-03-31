@@ -760,7 +760,218 @@ section {
 
 
 /* =============================================================================
-   14. CONTATO
+   14. FOTOS — EVENTOS E PALESTRAS (Carrossel)
+============================================================================= */
+#fotos {
+  background: var(--nude-dark);
+  overflow: hidden;
+}
+
+.fotos-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.fotos-header .tag  { margin-bottom: 1rem; }
+.fotos-header h2    { margin-bottom: 1rem; }
+.fotos-header h2 em { font-style: italic; color: var(--terracota); }
+.fotos-header p     { color: var(--marrom-mid); max-width: 480px; margin-inline: auto; }
+
+/* Wrapper externo — esconde o overflow do track */
+.carousel {
+  position: relative;
+}
+
+.carousel-track-wrap {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+}
+
+/* Track — flexbox horizontal; JS move via transform */
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s var(--ease-smooth);
+  will-change: transform;
+}
+
+/* Cada slide ocupa 100% da largura visível */
+.carousel-slide {
+  min-width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.carousel-img-wrap {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--nude-dark);
+  overflow: hidden;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.carousel-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease-smooth);
+}
+.carousel-slide:hover .carousel-img-wrap img {
+  transform: scale(1.03);
+}
+
+/* Placeholder visual quando a imagem não carrega */
+.carousel-img-wrap img[src$=".jpeg"]:not([naturalWidth]),
+.carousel-img-wrap img:-moz-broken {
+  background: var(--nude-dark);
+}
+
+/* Legenda */
+.carousel-slide figcaption {
+  background: var(--branco);
+  padding: 1rem 1.5rem;
+  font-size: 0.88rem;
+  color: var(--marrom-mid);
+  text-align: center;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  border-top: 2px solid var(--nude-dark);
+}
+
+/* Botões prev / next */
+.carousel-btn {
+  position: absolute;
+  top: calc(50% - 1.5rem); /* centraliza verticalmente na imagem */
+  transform: translateY(-50%);
+  background: var(--branco);
+  border: none;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--marrom);
+  box-shadow: 0 4px 16px rgba(92, 61, 46, 0.15);
+  transition:
+    background   0.2s,
+    transform    0.2s,
+    box-shadow   0.2s;
+  z-index: 2;
+}
+.carousel-btn:hover {
+  background: var(--terracota);
+  color: var(--branco);
+  box-shadow: 0 6px 24px rgba(196, 137, 106, 0.35);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.carousel-prev { left:  0.75rem; }
+.carousel-next { right: 0.75rem; }
+
+/* Dots */
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1.4rem;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(92, 61, 46, 0.2);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background 0.3s, transform 0.3s;
+}
+.carousel-dot.active {
+  background: var(--terracota);
+  transform: scale(1.35);
+}
+
+@media (min-width: 640px) {
+  .carousel-prev { left:  1.5rem; }
+  .carousel-next { right: 1.5rem; }
+}
+
+
+/* =============================================================================
+   15. PERGUNTAS FREQUENTES (FAQ)
+============================================================================= */
+#faq {
+  background: var(--nude);
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+.faq-header .tag { margin-bottom: 1rem; }
+.faq-header h2   { margin-bottom: 1rem; }
+.faq-header h2 em { font-style: italic; color: var(--terracota); }
+.faq-header p    { color: var(--marrom-mid); max-width: 480px; margin-inline: auto; }
+
+.faq-list {
+  max-width: 720px;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.faq-item {
+  background: var(--branco);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 2px 12px rgba(92, 61, 46, 0.07);
+  overflow: hidden;
+  transition: box-shadow 0.3s;
+}
+.faq-item[open] {
+  box-shadow: 0 6px 24px rgba(92, 61, 46, 0.12);
+}
+
+.faq-question {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.2rem 1.5rem;
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  color: var(--marrom);
+  gap: 1rem;
+}
+.faq-question::-webkit-details-marker { display: none; }
+
+/* Ícone + / × */
+.faq-question::after {
+  content: '+';
+  font-family: var(--font-body);
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--terracota);
+  flex-shrink: 0;
+  transition: transform 0.3s var(--ease-smooth);
+}
+.faq-item[open] .faq-question::after {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 0 1.5rem 1.2rem;
+  font-size: 0.92rem;
+  color: var(--marrom-mid);
+  border-top: 1px solid rgba(92, 61, 46, 0.07);
+  padding-top: 1rem;
+}
+
+
+/* =============================================================================
+   15. CONTATO
 ============================================================================= */
 #contato {
   background: var(--creme);
