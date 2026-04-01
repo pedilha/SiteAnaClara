@@ -1061,6 +1061,21 @@ footer p { font-size: 0.78rem; }
   color: rgba(242, 234, 224, 0.4);
   margin-top: 0.3rem;
 }
+.dev-credit {
+    margin-top: 0.4rem;
+    font-size: 0.72rem;
+    color: rgba(253, 250, 245, 0.2);
+}
+
+.dev-credit a {
+    color: rgba(253, 250, 245, 0.2);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.dev-credit a:hover {
+    color: var(--nude);
+}
 
 
 /* =============================================================================
