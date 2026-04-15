@@ -317,10 +317,10 @@ section {
 }
 
 .hero-inner {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 3rem;
+  display: flex;
+  flex-direction: column;
   align-items: center;
+  gap: 2rem;
   width: 100%;
 }
 
@@ -1174,19 +1174,18 @@ footer p { font-size: 0.78rem; }
 
   /* Hero: layout de duas colunas (texto + foto) */
   .hero-inner {
+    display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 4rem;
+    grid-template-areas:
+      "text  visual"
+      "cta   visual";
+    gap: 2rem 4rem;
+    align-items: start;
   }
-  .hero-text {
-    text-align: left;
-  }
-  .hero-sub {
-    margin-inline: 0;
-  }
-  .hero-cta-group {
-    justify-content: flex-start;
-  }
-  .hero-visual      { justify-content: flex-end; }
+  .hero-text        { grid-area: text; text-align: left; }
+  .hero-visual      { grid-area: visual; grid-row: span 2; justify-content: flex-end; align-self: center; }
+  .hero-cta-group   { grid-area: cta; justify-content: flex-start; align-self: start; }
+  .hero-sub         { margin-inline: 0; }
   .hero-photo-wrap  { width: 340px; }
 
   /* Sobre: mantém centralizado */
