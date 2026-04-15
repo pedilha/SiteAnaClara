@@ -3,37 +3,23 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Ana Clara Tomaz — Psicóloga. Acompanhamento psicológico para mulheres que desejam se conhecer melhor e cuidar da saúde emocional." />
+  <meta name="description" content="Ana Clara Tomaz — Psicóloga CRP 09/22999. Acompanhamento psicológico para adolescentes e adultos que desejam se conhecer melhor e cuidar da saúde emocional." />
   <title>Ana Clara Tomaz | Psicóloga</title>
 
-  <!-- ── Fontes ─────────────────────────────────────────────────────────── -->
-  <!-- Cormorant Garamond: títulos elegantes / DM Sans: corpo legível -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
-
-  <!-- ── AOS: animações ao scroll ───────────────────────────────────────── -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
-
-  <!-- ── Estilos do site ────────────────────────────────────────────────── -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
-       BARRA DE PROGRESSO DE SCROLL
-  ══════════════════════════════════════════════════════════════════════ -->
   <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       NAVBAR
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- NAVBAR -->
   <nav id="navbar" role="navigation" aria-label="Navegação principal">
     <div class="container nav-inner">
-
       <a href="#hero" class="nav-logo">Ana Clara <span>Tomaz</span></a>
-
       <ul class="nav-links" role="list">
         <li><a href="#sobre">Sobre</a></li>
         <li><a href="#beneficios">Benefícios</a></li>
@@ -41,54 +27,37 @@
         <li><a href="#faq">FAQ</a></li>
         <li><a href="#contato">Contato</a></li>
       </ul>
-
-      <!-- Botão CTA — aparece no navbar após scroll (via JS) -->
       <a href="#cta" class="btn btn-primary" style="display:none" id="navCta">Agendar</a>
-
-      <!-- Hamburguer — visível apenas no mobile -->
       <button class="hamburger" id="hamburger" aria-label="Abrir menu" aria-expanded="false">
-        <span></span>
-        <span></span>
-        <span></span>
+        <span></span><span></span><span></span>
       </button>
-
     </div>
   </nav>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       MENU MOBILE (overlay)
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- MENU MOBILE -->
   <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu de navegação">
-    <a href="#sobre"       class="mobile-link">Sobre</a>
-    <a href="#beneficios"  class="mobile-link">Benefícios</a>
-    <a href="#fotos"       class="mobile-link">Trajetória</a>
-    <a href="#faq"         class="mobile-link">FAQ</a>
-    <a href="#contato"     class="mobile-link">Contato</a>
-    <a href="#cta"         class="btn btn-primary mobile-link">Agendar consulta</a>
+    <a href="#sobre"      class="mobile-link">Sobre</a>
+    <a href="#beneficios" class="mobile-link">Benefícios</a>
+    <a href="#fotos"      class="mobile-link">Trajetória</a>
+    <a href="#faq"        class="mobile-link">FAQ</a>
+    <a href="#contato"    class="mobile-link">Contato</a>
+    <a href="#cta"        class="btn btn-primary mobile-link">Agendar consulta</a>
   </div>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       HERO — apresentação principal
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- HERO -->
   <section id="hero" aria-labelledby="hero-title">
-    <div class="container" style="display:contents;">
+    <div class="hero-inner container">
 
-      <!-- Coluna de texto -->
-      <div class="hero-text container" data-aos="fade-up" data-aos-duration="800">
-        <p class="tag">Psicóloga · Bem-estar Emocional</p>
-
+      <div class="hero-text" data-aos="fade-up" data-aos-duration="800">
+        <p class="tag">Psicóloga · CRP 09/22999</p>
         <h1 class="hero-title" id="hero-title">
           Um espaço <em>só</em><br>para você
         </h1>
-
         <p class="hero-sub">
-          Acompanhamento psicológico humanizado para mulheres que desejam se conhecer
+          Acompanhamento psicológico humanizado para adolescentes e adultos que desejam se conhecer
           mais profundamente e cuidar da própria saúde emocional — com acolhimento,
           escuta e presença.
         </p>
-
         <div class="hero-cta-group">
           <a href="#cta" class="btn btn-primary">
             Quero começar
@@ -100,23 +69,13 @@
         </div>
       </div>
 
-      <!-- Coluna da foto -->
-      <div class="hero-visual" data-aos="fade-left" data-aos-duration="900" data-aos-delay="150">
+      <div class="hero-visual" data-aos="fade-up" data-aos-duration="900" data-aos-delay="150">
         <div class="hero-photo-wrap">
-
-          <!-- FOTO HERO ─────────────────────────────────────────────────
-               Arquivo: img/ana-clara-merito.jpeg
-               Proporção recomendada: 3:4 (vertical)
-               Para trocar: altere o src abaixo.
-          ──────────────────────────────────────────────────────────────── -->
           <img
-            src="img/head.png"
-            alt="Ana Clara Tomaz, psicóloga, segurando o diploma com mérito prata"
+            src="img/capa.jpeg"
+            alt="Ana Clara Tomaz, psicóloga"
             style="width:100%; aspect-ratio:3/4; border-radius:var(--radius-lg); object-fit:cover;"
           />
-
-
-          <!-- Linha decorativa vertical -->
           <div class="hero-line" aria-hidden="true"></div>
         </div>
       </div>
@@ -124,104 +83,64 @@
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       SOBRE — quem é Ana Clara
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- SOBRE -->
   <section id="sobre" aria-labelledby="sobre-title">
     <div class="container">
-      <div class="sobre-grid">
+      <div class="sobre-content-centered" data-aos="fade-up" data-aos-duration="800">
+        <p class="tag">Quem sou eu</p>
+        <h2 id="sobre-title">Presença que<br><em>acolhe</em> e transforma</h2>
+        <p>
+          Sou Ana Clara Tomaz, psicóloga formada pela PUC Goiás (CRP 09/22999).
+          Estou me especializando em Neuropsicologia.
+          Atendo de forma online adolescentes e adultos,
+          que buscam compreender e lidar melhor com suas questões comportamentais e socioemocionais.
+        </p>
+        <p>
+          Escolhi direcionar meus estudos especialmente ao público feminino,
+          justamente por me identificar com a complexidade e desafios de ser uma mulher no mundo que vivemos.
+          Acredito que cada mulher carrega uma história única e que merece ser acolhida.
+        </p>
+        <p>
+          Minha atuação é guiada pela escuta ativa, empatia
+          e ciência, respeitando a singularidade de cada história!
+        </p>
 
-        <!-- Foto da seção Sobre -->
-        <div class="sobre-foto-wrap" data-aos="fade-right" data-aos-duration="800">
-
-          <!-- FOTO SOBRE ────────────────────────────────────────────────
-               Arquivo: img/ana-clara-formatura.jpeg
-               Proporção recomendada: 1:1.1 (quase quadrada, levemente vertical)
-          ──────────────────────────────────────────────────────────────── -->
-          <img
-            src="img/ana-clara-formatura.jpeg"
-            alt="Ana Clara Tomaz na formatura de Psicologia pela PUC-GO"
-            class="sobre-foto"
-          />
-
-          <!-- Círculo decorativo atrás da foto -->
-          <div class="sobre-deco" aria-hidden="true"></div>
-        </div>
-
-        <!-- Texto sobre a profissional -->
-        <div class="sobre-content" data-aos="fade-left" data-aos-duration="800" data-aos-delay="100">
-          <p class="tag">Quem sou eu</p>
-
-          <h2 id="sobre-title">
-            Presença que<br><em>acolhe</em> e transforma
-          </h2>
-
-          <p>
-              Sou Ana Clara Tomaz, psicóloga formada pela PUC Goiás.
-              Estou me especializando em Neuropsicologia.
-              Atendo de forma online adolescentes e adultos,
-              que buscam compreender e lidar melhor com suas questões comportamentais e socioemocionais.
-          </p>
-          <p>
-              Escolhi direcionar meus estudos especialmente ao público feminino,
-              justamente por me identificar com a complexidade e desafios de ser uma mulher no mundo que vivemos.
-              Acredito que cada mulher carrega um história única e que merece ser acolhida
-          </p>
-          <p>
-              Minha atuação é guiada pela escuta ativa, empatia
-              e ciência, respeitando a singularidade de cada história!
-          </p>
-
-          <!-- Cards de formação -->
-          <div class="formacao-cards">
-
-            <div class="formacao-item">
-              <div class="formacao-icon" aria-hidden="true">🎓</div>
-              <div>
-                <strong>Graduação em Psicologia</strong>
-                <span>PUC-GO · 2025 · Mérito Acadêmico Prata</span>
-              </div>
+        <div class="formacao-cards">
+          <div class="formacao-item">
+            <div class="formacao-icon" aria-hidden="true">🎓</div>
+            <div>
+              <strong>Graduação em Psicologia</strong>
+              <span>PUC-GO · 2025 · Mérito Acadêmico Prata</span>
             </div>
-
-            <div class="formacao-item">
-              <div class="formacao-icon" aria-hidden="true">📋</div>
-              <div>
-                <strong>Registro Profissional</strong>
-                <span>CRP em andamento — atuação ética e comprometida</span>
-              </div>
+          </div>
+          <div class="formacao-item">
+            <div class="formacao-icon" aria-hidden="true">📋</div>
+            <div>
+              <strong>Registro Profissional</strong>
+              <span>CRP 09/22999 · Atuação ética e comprometida</span>
             </div>
-
-            <div class="formacao-item">
-              <div class="formacao-icon" aria-hidden="true">💡</div>
-              <div>
-                <strong>Abordagem</strong>
-                <span>Humanista · Fenomenológica · Centrada na pessoa</span>
-              </div>
+          </div>
+          <div class="formacao-item">
+            <div class="formacao-icon" aria-hidden="true">💡</div>
+            <div>
+              <strong>Abordagem</strong>
+              <span>Humanista · Fenomenológica · Centrada na pessoa</span>
             </div>
-
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       BENEFÍCIOS
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- BENEFÍCIOS -->
   <section id="beneficios" aria-labelledby="beneficios-title">
     <div class="container">
-
       <header class="beneficios-header" data-aos="fade-up">
         <p class="tag">Por que investir em você</p>
         <h2 id="beneficios-title">O que muda com o<br><em>acompanhamento psicológico</em></h2>
         <p>A terapia não é só para crises. É um espaço de cuidado contínuo que transforma a sua relação com você mesma e com o mundo.</p>
       </header>
-
       <div class="beneficios-grid">
-
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="0">
           <div class="beneficio-num" aria-hidden="true">01</div>
           <div>
@@ -229,7 +148,6 @@
             <p>Entender seus padrões emocionais, crenças e comportamentos é o primeiro passo para uma vida mais consciente e plena.</p>
           </div>
         </div>
-
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="80">
           <div class="beneficio-num" aria-hidden="true">02</div>
           <div>
@@ -237,7 +155,6 @@
             <p>Aprenda a reconhecer, nomear e regular suas emoções — com mais equilíbrio no dia a dia e nas relações.</p>
           </div>
         </div>
-
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="160">
           <div class="beneficio-num" aria-hidden="true">03</div>
           <div>
@@ -245,7 +162,6 @@
             <p>Ao se conhecer melhor, você se relaciona de forma mais autêntica — com limites claros e comunicação mais aberta.</p>
           </div>
         </div>
-
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="240">
           <div class="beneficio-num" aria-hidden="true">04</div>
           <div>
@@ -253,7 +169,6 @@
             <p>Dê passos seguros além do que te paralisa — seja na vida profissional, nos relacionamentos ou na sua própria identidade.</p>
           </div>
         </div>
-
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="320">
           <div class="beneficio-num" aria-hidden="true">05</div>
           <div>
@@ -261,7 +176,6 @@
             <p>Cuidar da saúde mental impacta diretamente o seu corpo, sono, produtividade e a forma como você aprecia a vida.</p>
           </div>
         </div>
-
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="400">
           <div class="beneficio-num" aria-hidden="true">06</div>
           <div>
@@ -269,101 +183,73 @@
             <p>Um lugar onde você pode ser quem realmente é — com sigilo, ética e acolhimento em cada encontro.</p>
           </div>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- =============================================================================================
-       SEÇÃO DE FOTOS
-       ============================================================================================ -->
-
+  <!-- TRAJETÓRIA (CARROSSEL) -->
   <section id="fotos" aria-labelledby="fotos-title">
-      <div class="container">
-
-          <header class="fotos-header" data-aos="fade-up">
-              <p class="tag">Presença e trajetória</p>
-              <h2 id="fotos-title">Minha <em>trajetória</em></h2>
-              <p>Momentos que marcam minha jornada na psicologia e no cuidado com a saúde mental.</p>
-          </header>
-
-          <div class="carousel" data-aos="fade-up" data-aos-delay="100">
-
-              <!-- ÁREA DOS SLIDES ─────────────────────────────────────────── -->
-              <div class="carousel-track-wrap">
-                  <div class="carousel-track" id="carouselTrack">
-
-                      <figure class="carousel-slide">
-                          <div class="carousel-img-wrap">
-                              <img src="img/ana-clara-merito.jpeg" alt="Evento ou palestra" />
-                          </div>
-                          <figcaption>Graduada com honra ao mérito de prata</figcaption>
-                      </figure>
-
-                      <figure class="carousel-slide">
-                          <div class="carousel-img-wrap">
-                              <img src="img/ana-clara-professor.jpeg" alt="Evento ou palestra" />
-                          </div>
-                          <figcaption>Recebendo diploma do professor Flávio</figcaption>
-                      </figure>
-
-                      <figure class="carousel-slide">
-                          <div class="carousel-img-wrap">
-                              <img src="img/presidente-liga.jpeg" alt="Evento ou palestra" />
-                          </div>
-                          <figcaption>Presidente por 1 ano da liga acadêmica de psicoterapia infanto-juvenil da PUC Goiás</figcaption>
-                      </figure>
-
-                      <figure class="carousel-slide">
-                          <div class="carousel-img-wrap">
-                              <img src="img/estagio-obrigatorio.jpeg" alt="Evento ou palestra" />
-                          </div>
-                          <figcaption>Estágio obrigatório da graduação: 1 semestre na pediatria do Hospital das Clínicas, experiência atendendo e acolhendo adolescentes e seus responsáveis</figcaption>
-                      </figure>
-
-                      <figure class="carousel-slide">
-                          <div class="carousel-img-wrap">
-                              <img src="img/TCC.jpeg" alt="Evento ou palestra" />
-                          </div>
-                          <figcaption>TCC defendido e aprovado com nota máxima</figcaption>
-                      </figure>
-
-                  </div>
+    <div class="container">
+      <header class="fotos-header" data-aos="fade-up">
+        <p class="tag">Presença e trajetória</p>
+        <h2 id="fotos-title">Minha <em>trajetória</em></h2>
+        <p>Momentos que marcam minha jornada na psicologia e no cuidado com a saúde mental.</p>
+      </header>
+      <div class="carousel" data-aos="fade-up" data-aos-delay="100">
+        <div class="carousel-track-wrap">
+          <div class="carousel-track" id="carouselTrack">
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/ana-clara-merito.jpeg" alt="Graduada com honra ao mérito de prata" />
               </div>
-              <!-- ─────────────────────────────────────────────────────────── -->
-
-              <!-- Botões de navegação -->
-              <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Foto anterior">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
-              </button>
-              <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Próxima foto">
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
-              </button>
-
-              <!-- Dots indicadores -->
-              <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Navegar pelos slides"></div>
-
+              <figcaption>Graduada com honra ao mérito de prata</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/ana-clara-professor.jpeg" alt="Recebendo diploma do professor Flávio" />
+              </div>
+              <figcaption>Recebendo diploma do professor Flávio</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/presidente-liga.jpeg" alt="Presidente da liga acadêmica" />
+              </div>
+              <figcaption>Presidente por 1 ano da liga acadêmica de psicoterapia infanto-juvenil da PUC Goiás</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/estagio-obrigatorio.jpeg" alt="Estágio obrigatório" />
+              </div>
+              <figcaption>Estágio obrigatório da graduação: 1 semestre na pediatria do Hospital das Clínicas, experiência atendendo e acolhendo adolescentes e seus responsáveis</figcaption>
+            </figure>
+            <figure class="carousel-slide">
+              <div class="carousel-img-wrap">
+                <img src="img/TCC.jpeg" alt="TCC defendido e aprovado" />
+              </div>
+              <figcaption>TCC defendido e aprovado com nota máxima</figcaption>
+            </figure>
           </div>
+        </div>
+        <button class="carousel-btn carousel-prev" id="carouselPrev" aria-label="Foto anterior">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="carousel-btn carousel-next" id="carouselNext" aria-label="Próxima foto">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+        <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Navegar pelos slides"></div>
       </div>
+    </div>
   </section>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       ABORDAGEM / QUOTE
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- FILOSOFIA / QUOTE -->
   <section id="abordagem" aria-labelledby="abordagem-label">
     <div class="container">
       <div class="quote-block" data-aos="fade-up">
-
         <p id="abordagem-label" class="tag" style="margin-bottom:2rem;">Minha filosofia</p>
-
         <blockquote class="quote-text">
           "Cuidar da saúde mental não é um luxo — é um ato de amor próprio e de coragem. Você merece esse espaço."
         </blockquote>
-
-        <p class="quote-author">— Ana Clara Tomaz, Psicóloga</p>
-
-        <!-- Pills de temas — clicáveis para seleção -->
+        <p class="quote-author">— Ana Clara Tomaz, Psicóloga CRP 09/22999</p>
         <div class="abordagem-pills" role="list" aria-label="Abordagens e temas trabalhados">
           <span class="pill" role="listitem">Escuta ativa</span>
           <span class="pill" role="listitem">Vínculo terapêutico</span>
@@ -375,37 +261,28 @@
           <span class="pill" role="listitem">Relacionamentos</span>
           <span class="pill" role="listitem">Saúde emocional</span>
         </div>
-
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
-       CTA PRINCIPAL — chamada para ação
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- CTA PRINCIPAL -->
   <section id="cta" aria-labelledby="cta-title">
     <div class="container cta-content" data-aos="zoom-in" data-aos-duration="700">
-
       <p class="tag">Primeiro passo</p>
       <h2 id="cta-title">Pronta para começar<br>sua jornada?</h2>
       <p>
-        Entre em contato e dê o primeiro passo em direção ao seu bem-estar emocional.
+        Entre em contato pelo WhatsApp e dê o primeiro passo em direção ao seu bem-estar emocional.
         Sem pressa, sem julgamento — no seu tempo.
       </p>
-
       <div class="cta-buttons">
-
-        <!-- GOOGLE FORMS ───────────────────────────────────────────────── -->
         <a
-          href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform"
+          href="https://api.whatsapp.com/send?phone=5562981112485&text=Oii+Ana%2C+gostaria+de+iniciar+acompanhamento+psicol%C3%B3gico+com+voc%C3%AA%21+%F0%9F%92%8C"
           target="_blank"
           rel="noopener noreferrer"
           class="btn btn-cta-white"
         >
-          📋 Preencher formulário
+          💬 Falar pelo WhatsApp
         </a>
-
-        <!-- INSTAGRAM ──────────────────────────────────────────────────── -->
         <a
           href="https://www.instagram.com/psianaclaratomaz/"
           target="_blank"
@@ -414,81 +291,68 @@
         >
           📷 Ver no Instagram
         </a>
-
       </div>
     </div>
   </section>
 
-  <!-- ══════════════════════════════════════════════════════════════════════
-       PERGUNTAS FREQUENTES
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- FAQ -->
   <section id="faq" aria-labelledby="faq-title">
     <div class="container">
-
       <header class="faq-header" data-aos="fade-up">
         <p class="tag">Dúvidas comuns</p>
         <h2 id="faq-title">Perguntas <em>frequentes</em></h2>
         <p>Algumas respostas para te ajudar antes do primeiro contato.</p>
       </header>
-
       <div class="faq-list">
-
         <details class="faq-item" data-aos="fade-up" data-aos-delay="0">
           <summary class="faq-question">Como funciona a primeira sessão?</summary>
           <p class="faq-answer">A primeira sessão é um espaço de acolhimento e escuta. Conversamos sobre o que te trouxe até aqui, suas expectativas e como o processo terapêutico pode te ajudar. Não há roteiro fixo — é uma conversa leve e sem julgamentos.</p>
         </details>
-
         <details class="faq-item" data-aos="fade-up" data-aos-delay="80">
           <summary class="faq-question">O atendimento é online, presencial ou os dois?</summary>
           <p class="faq-answer">Atendo de forma online e presencial. A modalidade pode ser definida conforme sua preferência e disponibilidade. O atendimento online oferece toda a qualidade e sigilo da sessão presencial, com a comodidade de estar no seu ambiente.</p>
         </details>
-
         <details class="faq-item" data-aos="fade-up" data-aos-delay="160">
           <summary class="faq-question">Com que frequência devo fazer as sessões?</summary>
           <p class="faq-answer">O mais comum é uma sessão por semana, o que permite continuidade no processo terapêutico. Porém, a frequência ideal é definida juntas, de acordo com suas necessidades e rotina.</p>
         </details>
-
         <details class="faq-item" data-aos="fade-up" data-aos-delay="240">
           <summary class="faq-question">As sessões são sigilosas?</summary>
           <p class="faq-answer">Sim, absolutamente. O sigilo é um dos pilares da ética profissional da psicologia. Tudo o que é compartilhado nas sessões permanece entre nós, conforme o Código de Ética dos Psicólogos.</p>
         </details>
-
         <details class="faq-item" data-aos="fade-up" data-aos-delay="320">
           <summary class="faq-question">Quanto tempo dura cada sessão?</summary>
           <p class="faq-answer">Cada sessão tem duração de 50 minutos, que é o tempo padrão na psicologia clínica. Esse tempo é todo seu — para falar, sentir e refletir no seu próprio ritmo.</p>
         </details>
-
       </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       CONTATO
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- CONTATO -->
   <section id="contato" aria-labelledby="contato-title">
     <div class="container">
-
       <header class="contato-header" data-aos="fade-up">
         <p class="tag">Vamos conversar</p>
         <h2 id="contato-title">Formas de me encontrar</h2>
         <p>Escolha o canal que for mais confortável para você. Estou aqui para escutar.</p>
       </header>
+      <div class="contato-grid contato-grid--2">
 
-      <div class="contato-grid">
-
-        <!-- E-MAIL ─────────────────────────────────────────────────────── -->
-        <!-- Troque "seuemail@email.com" pelo e-mail profissional real      -->
         <div class="contato-card" data-aos="fade-up" data-aos-delay="0">
-          <div class="contato-icon" aria-hidden="true">✉️</div>
-          <h4>E-mail</h4>
-          <p>Para dúvidas ou para iniciar uma conversa com mais tranquilidade.</p>
-          <a href="mailto:anaclaratomazf@gmail.com" class="btn btn-outline" aria-label="Enviar e-mail para Ana Clara">
-            Enviar e-mail
+          <div class="contato-icon" aria-hidden="true">💬</div>
+          <h4>WhatsApp</h4>
+          <p>Tire dúvidas ou agende sua primeira sessão de forma rápida e prática.</p>
+          <a
+            href="https://api.whatsapp.com/send?phone=5562981112485&text=Oii+Ana%2C+gostaria+de+iniciar+acompanhamento+psicol%C3%B3gico+com+voc%C3%AA%21+%F0%9F%92%8C"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary"
+            aria-label="Falar com Ana Clara pelo WhatsApp"
+          >
+            Iniciar conversa
           </a>
         </div>
 
-        <!-- INSTAGRAM ──────────────────────────────────────────────────── -->
         <div class="contato-card" data-aos="fade-up" data-aos-delay="100">
           <div class="contato-icon" aria-hidden="true">📸</div>
           <h4>Instagram</h4>
@@ -504,39 +368,19 @@
           </a>
         </div>
 
-        <!-- FORMULÁRIO ─────────────────────────────────────────────────── -->
-        <div class="contato-card" data-aos="fade-up" data-aos-delay="200">
-          <div class="contato-icon" aria-hidden="true">📋</div>
-          <h4>Formulário</h4>
-          <p>Preencha rapidamente e entro em contato para agendar sua primeira sessão.</p>
-          <a
-            href="https://docs.google.com/forms/d/e/1FAIpQLSdpU9iDHSU3ZPuLRgqz8Is2hY1TLx23bUEvM-1AMW9Ty5AB3w/viewform"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="btn btn-primary"
-            aria-label="Acessar formulário de agendamento"
-          >
-            Agendar sessão
-          </a>
-        </div>
-
       </div>
     </div>
   </section>
 
-
-  <!-- ══════════════════════════════════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════════════════════════════════ -->
+  <!-- FOOTER -->
   <footer>
     <div class="container footer-inner">
       <div class="footer-logo">Ana Clara <span>Tomaz</span></div>
       <p>© 2025 Ana Clara Tomaz de Deus Fonseca Carneiro — Todos os direitos reservados.</p>
-      <p class="footer-crp">Registro Profissional (CRP) em andamento · Atendimento conforme Código de Ética dos Psicólogos</p>
+      <p class="footer-crp">CRP 09/22999 · Atendimento conforme Código de Ética dos Psicólogos</p>
       <p class="dev-credit">Desenvolvido por Pedro Willian Moraes · <a href="mailto:pedrowilian13@gmail.com">pedrowilian13@gmail.com</a></p>
     </div>
   </footer>
-
 
   <a
     href="https://api.whatsapp.com/send?phone=5562981112485&text=Oii+Ana%2C+gostaria+de+iniciar+acompanhamento+psicol%C3%B3gico+com+voc%C3%AA%21+%F0%9F%92%8C"
@@ -551,8 +395,6 @@
     </svg>
   </a>
 
-
-  <!-- ── Scripts (no final do body para não bloquear o carregamento) ──── -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="js/main.js"></script>
 

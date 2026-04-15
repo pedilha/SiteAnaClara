@@ -310,12 +310,18 @@ section {
 #hero {
   min-height: 100svh;
   padding-top: 7rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.hero-inner {
   display: grid;
   grid-template-columns: 1fr;
   gap: 3rem;
   align-items: center;
-  position: relative;
-  overflow: hidden;
+  width: 100%;
 }
 
 /* Ornamentos de fundo — formas orgânicas em pseudo-elementos */
@@ -346,6 +352,7 @@ section {
 .hero-text {
   position: relative;
   z-index: 1;
+  text-align: center;
 }
 .hero-text .tag {
   margin-bottom: 1.2rem;
@@ -358,15 +365,17 @@ section {
   color: var(--terracota);
 }
 .hero-sub {
-  max-width: 480px;
+  max-width: 520px;
   color: var(--marrom-mid);
   margin-bottom: 2.5rem;
+  margin-inline: auto;
 }
 .hero-cta-group {
   display: flex;
   flex-wrap: wrap;
   gap: 1rem;
   align-items: center;
+  justify-content: center;
 }
 
 /* Coluna da foto */
@@ -378,7 +387,7 @@ section {
 }
 .hero-photo-wrap {
   position: relative;
-  width: min(320px, 80vw);
+  width: min(300px, 75vw);
 }
 
 /* Placeholder (quando não há foto real) */
@@ -469,7 +478,18 @@ section {
   align-items: center;
 }
 
-/* Foto da seção Sobre */
+/* Layout centralizado (sem foto) */
+.sobre-content-centered {
+  max-width: 700px;
+  margin-inline: auto;
+  text-align: center;
+}
+.sobre-content-centered .tag  { margin-bottom: 1rem; }
+.sobre-content-centered h2    { margin-bottom: 1.5rem; }
+.sobre-content-centered h2 em { font-style: italic; color: var(--terracota); }
+.sobre-content-centered p     { color: var(--marrom-mid); margin-bottom: 1rem; }
+
+/* Foto da seção Sobre (mantido para compatibilidade) */
 .sobre-foto-wrap {
   position: relative;
 }
@@ -494,7 +514,7 @@ section {
   opacity: 0.4;
 }
 
-/* Texto do Sobre */
+/* Texto do Sobre (versão com foto — mantido para compatibilidade) */
 .sobre-content .tag  { margin-bottom: 1rem; }
 .sobre-content h2    { margin-bottom: 1.5rem; }
 .sobre-content h2 em { font-style: italic; color: var(--terracota); }
@@ -506,6 +526,7 @@ section {
   flex-direction: column;
   gap: 0.8rem;
   margin-top: 2rem;
+  text-align: left;
 }
 .formacao-item {
   display: flex;
@@ -1005,6 +1026,11 @@ section {
   transform: translateY(-5px);
   box-shadow: 0 12px 36px rgba(92, 61, 46, 0.12);
 }
+/* Grid de contato com 2 cards */
+.contato-grid--2 {
+  max-width: 640px;
+  margin-inline: auto;
+}
 
 .contato-icon {
   width: 56px;
@@ -1146,21 +1172,30 @@ footer p { font-size: 0.78rem; }
   .nav-links  { display: flex; }
   .hamburger  { display: none; }
 
-  /* Hero: layout de duas colunas */
-  #hero {
+  /* Hero: layout de duas colunas (texto + foto) */
+  .hero-inner {
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
-    min-height: 100svh;
+  }
+  .hero-text {
+    text-align: left;
+  }
+  .hero-sub {
+    margin-inline: 0;
+  }
+  .hero-cta-group {
+    justify-content: flex-start;
   }
   .hero-visual      { justify-content: flex-end; }
   .hero-photo-wrap  { width: 340px; }
 
-  /* Sobre: duas colunas assimétricas */
-  .sobre-grid { grid-template-columns: 1fr 1.2fr; }
+  /* Sobre: mantém centralizado */
+  .sobre-content-centered { max-width: 760px; }
 
   /* Grids de 3 colunas */
   .publico-cards    { grid-template-columns: repeat(3, 1fr); }
   .contato-grid     { grid-template-columns: repeat(3, 1fr); }
+  .contato-grid--2  { grid-template-columns: repeat(2, 1fr); max-width: 640px; }
 }
 
 
