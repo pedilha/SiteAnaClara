@@ -354,21 +354,46 @@ section {
   z-index: 1;
   text-align: center;
 }
+
+/* Nome principal da psicóloga */
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  font-weight: 400;
+  color: var(--marrom);
+  line-height: 1.15;
+  margin-bottom: 0.5rem;
+}
+
 .hero-text .tag {
   margin-bottom: 1.2rem;
-}
-.hero-title {
-  margin-bottom: 1.5rem;
-}
-.hero-title em {
-  font-style: italic;
-  color: var(--terracota);
 }
 .hero-sub {
   max-width: 520px;
   color: var(--marrom-mid);
-  margin-bottom: 2.5rem;
+  margin-bottom: 1rem;
   margin-inline: auto;
+}
+.hero-sub em {
+  font-style: italic;
+  color: var(--terracota);
+  font-weight: 400;
+}
+
+/* Frase de destaque — citação estilizada */
+.hero-destaque {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 3vw, 1.5rem);
+  font-style: italic;
+  color: var(--marrom);
+  margin-inline: auto;
+  max-width: 420px;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(196, 137, 106, 0.3);
+  margin-bottom: 0;
+}
+.hero-destaque em {
+  color: var(--terracota);
 }
 .hero-cta-group {
   display: flex;
@@ -1182,10 +1207,16 @@ footer p { font-size: 0.78rem; }
     gap: 2rem 4rem;
     align-items: start;
   }
+  .hero-inner {
+    grid-template-areas:
+      "visual text"
+      "visual cta";
+  }
   .hero-text        { grid-area: text; text-align: left; }
-  .hero-visual      { grid-area: visual; grid-row: span 2; justify-content: flex-end; align-self: center; }
+  .hero-visual      { grid-area: visual; grid-row: span 2; justify-content: flex-start; align-self: center; }
   .hero-cta-group   { grid-area: cta; justify-content: flex-start; align-self: start; }
   .hero-sub         { margin-inline: 0; }
+  .hero-destaque    { margin-inline: 0; }
   .hero-photo-wrap  { width: 340px; }
 
   /* Sobre: mantém centralizado */
