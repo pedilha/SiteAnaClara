@@ -136,16 +136,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
    Para adicionar ou remover fotos, edite apenas o HTML (index.html).
 ============================================================================= */
 (function () {
-  const track  = document.getElementById('carouselTrack');
-  const dotsEl = document.getElementById('carouselDots');
+  const track   = document.getElementById('carouselTrack');
+  const dotsEl  = document.getElementById('carouselDots');
   const btnPrev = document.getElementById('carouselPrev');
   const btnNext = document.getElementById('carouselNext');
 
   if (!track) return; // seção não existe na página
 
-  const slides = Array.from(track.querySelectorAll('.carousel-slide'));
-  const total  = slides.length;
-  let current  = 0;
+  const slides       = Array.from(track.querySelectorAll('.carousel-slide'));
+  const total        = slides.length;
+  let current        = 0;
+  const INTERVALO_MS = 4000;  // tempo entre slides (ms) — altere aqui se quiser
+  const PAUSA_MS     = 8000;  // pausa após interação manual antes de retomar
+  let autoplayTimer  = null;
 
   if (total === 0) return;
 
@@ -155,7 +158,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     dot.className  = 'carousel-dot' + (i === 0 ? ' active' : '');
     dot.setAttribute('role', 'tab');
     dot.setAttribute('aria-label', 'Ir para foto ' + (i + 1));
-    dot.addEventListener('click', () => goTo(i));
+    dot.addEventListener('click', () => { goTo(i); resetAutoplay(); });
     dotsEl.appendChild(dot);
   });
 
@@ -169,16 +172,40 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
   }
 
-  btnPrev.addEventListener('click', () => goTo(current - 1));
-  btnNext.addEventListener('click', () => goTo(current + 1));
+  // Autoplay — avança para o próximo slide automaticamente
+  function startAutoplay() {
+    autoplayTimer = setInterval(() => goTo(current + 1), INTERVALO_MS);
+  }
+
+  // Reinicia o autoplay após interação manual (pausa por PAUSA_MS)
+  function resetAutoplay() {
+    clearInterval(autoplayTimer);
+    autoplayTimer = setTimeout(() => {
+      clearInterval(autoplayTimer);
+      startAutoplay();
+    }, PAUSA_MS);
+  }
+
+  // Pausa ao passar o mouse por cima (desktop)
+  track.closest('.carousel').addEventListener('mouseenter', () => clearInterval(autoplayTimer));
+  track.closest('.carousel').addEventListener('mouseleave', () => {
+    clearInterval(autoplayTimer);
+    startAutoplay();
+  });
+
+  btnPrev.addEventListener('click', () => { goTo(current - 1); resetAutoplay(); });
+  btnNext.addEventListener('click', () => { goTo(current + 1); resetAutoplay(); });
 
   // Swipe no touch (mobile)
   let touchStartX = 0;
   track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
   track.addEventListener('touchend',   e => {
     const diff = touchStartX - e.changedTouches[0].clientX;
-    if (Math.abs(diff) > 40) goTo(current + (diff > 0 ? 1 : -1));
+    if (Math.abs(diff) > 40) { goTo(current + (diff > 0 ? 1 : -1)); resetAutoplay(); }
   });
+
+  // Inicia o autoplay
+  startAutoplay();
 })();
 
 
