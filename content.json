@@ -1,0 +1,67 @@
+{
+  "hero": {
+    "nome": "Ana Clara Tomaz",
+    "tag": "Psicóloga · CRP 09/22999",
+    "subtitulo": "Acompanhamento psicológico voltado ao público feminino, a partir de 13 anos. Atendimento com propósito, individualizado e com base na ciência — mas acima de tudo, <em>empático e acolhedor</em>.",
+    "destaque": "\"Esse é um espaço <em>só para você.</em>\"",
+    "foto": "img/capa.jpeg"
+  },
+  "sobre": {
+    "tag": "Quem sou eu",
+    "titulo": "Presença que<br><em>acolhe</em> e transforma",
+    "paragrafos": [
+      "Sou Ana Clara Tomaz, psicóloga formada pela PUC Goiás (CRP 09/22999). Estou me especializando em Neuropsicologia. Atendo de forma online adolescentes e adultos, que buscam compreender e lidar melhor com suas questões comportamentais e socioemocionais.",
+      "Escolhi direcionar meus estudos especialmente ao público feminino, justamente por me identificar com a complexidade e desafios de ser uma mulher no mundo que vivemos. Acredito que cada mulher carrega uma história única e que merece ser acolhida.",
+      "Minha atuação é guiada pela escuta ativa, empatia e ciência, respeitando a singularidade de cada história!"
+    ],
+    "formacao": [
+      { "icone": "🎓", "titulo": "Graduação em Psicologia", "descricao": "PUC-GO · 2025" },
+      { "icone": "📋", "titulo": "Registro Profissional", "descricao": "CRP 09/22999 · Atuação ética e comprometida" },
+      { "icone": "💡", "titulo": "Abordagem", "descricao": "Terapia Cognitiva - Comportamental & Contextuais" }
+    ]
+  },
+  "carrossel": [
+    { "foto": "img/ana-clara-merito.jpeg", "legenda": "Formada com Mérito Acadêmico Magna Cum Laude" },
+    { "foto": "img/ana-clara-professor.jpeg", "legenda": "Recebendo diploma do professor e coordenador do curso de Psicologia da PUC Goiás Prof. Me. Flávio da Silva Borges" },
+    { "foto": "img/presidente-liga.jpeg", "legenda": "Presidente por 1 ano da liga acadêmica de psicoterapia infanto-juvenil da PUC Goiás" },
+    { "foto": "img/estagio-obrigatorio.jpeg", "legenda": "Estágio obrigatório da graduação: 1 semestre na pediatria do Hospital das Clínicas, experiência atendendo e acolhendo adolescentes e seus responsáveis" },
+    { "foto": "img/TCC.jpeg", "legenda": "TCC defendido e aprovado com nota máxima" }
+  ],
+  "certificados": [
+    { "foto": "img/ana-clara-merito.jpeg", "legenda": "Mérito Acadêmico Magna Cum Laude — PUC Goiás · 2025" }
+  ],
+  "faq": [
+    {
+      "pergunta": "Como funciona a primeira sessão?",
+      "resposta": "A primeira sessão é um momento de conversa leve, pensado para te acolher. Conversamos sobre o que te trouxe até aqui, suas expectativas, além de eu te apresentar o contrato terapêutico.<br><br>Também irei te explicar como funciona a terapia comigo (frequência, valores, dinâmica), será um momento para você tirar dúvidas!"
+    },
+    {
+      "pergunta": "O atendimento é online?",
+      "resposta": "Sim, realizo atendimentos 100% online para adultos, pré adolescentes e adolescentes, respeitando todos os critérios de segurança, sigilo e qualidade do atendimento psicológico."
+    },
+    {
+      "pergunta": "Com que frequência devo fazer as sessões?",
+      "resposta": "As sessões são realizadas uma vez na semana, dependendo de cada caso, podem ser mais."
+    },
+    {
+      "pergunta": "As sessões são sigilosas?",
+      "resposta": "Sim, absolutamente. O sigilo é um dos pilares da ética profissional da psicologia. Tudo o que é compartilhado nas sessões permanece entre nós, conforme o Código de Ética dos Psicólogos."
+    },
+    {
+      "pergunta": "Quanto tempo dura cada sessão?",
+      "resposta": "Cada sessão tem duração de 50 minutos. Esse tempo é todo seu — para falar, sentir e refletir no seu próprio ritmo."
+    },
+    {
+      "pergunta": "Você atende planos de saúde?",
+      "resposta": "Meu atendimento é particular via reembolso. Nessa modalidade, você paga a sessão e com o recibo que emitimos você solicita a devolução deste valor ao seu plano de saúde.<br><br>Para descobrir o valor que o seu convênio reembolsa por consulta com psicólogo, ligue para a central do seu convênio. A quantidade de sessões é ilimitada. É um direito seu escolher por quem será atendido."
+    },
+    {
+      "pergunta": "Quanto tempo dura o processo terapêutico?",
+      "resposta": "Isso varia conforme a demanda e os objetivos de cada caso. Alguns pacientes se beneficiam de intervenções breves; outros precisam de um acompanhamento mais prolongado. No caso de adolescentes, as metas são revisadas periodicamente com a família."
+    },
+    {
+      "pergunta": "Tenho um (a) filho (a) adolescente e gostaria que ele (a) iniciasse acompanhamento psicológico. Também participo da terapia?",
+      "resposta": "A frequência e formato dessa participação variam conforme o objetivo do processo terapêutico e as demandas familiares. Realizo sessões de orientação parental sempre que necessário, como forma de alinhar estratégias, fortalecer vínculos e ampliar a compreensão sobre o desenvolvimento do adolescente.<br><br>Além disso, quando identificamos benefícios terapêuticos nesse tipo de interação, também realizamos sessões conjuntas com os pais, favorecendo um espaço de escuta, mediação e construção conjunta de soluções."
+    }
+  ]
+}

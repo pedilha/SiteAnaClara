@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Painel Admin — Ana Clara Tomaz</title>
+  <link rel="icon" type="image/png" href="../img/favicon.png" />
+  <style>
+    :root {
+      --nude:       #F2EAE0;
+      --nude-dark:  #E8DDD0;
+      --terracota:  #C4896A;
+      --salvia:     #8FA88A;
+      --marrom:     #5C3D2E;
+      --marrom-mid: #7A5544;
+      --creme:      #FBF7F2;
+      --branco:     #FFFFFF;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body:    'DM Sans', sans-serif;
+      --radius:     0.75rem;
+      --ease:       cubic-bezier(.4,0,.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-body);
+      background: var(--nude);
+      color: var(--marrom);
+      min-height: 100vh;
+    }
+
+    /* ── LOGIN ─────────────────────────────────────────────────────────────── */
+    #login-screen {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--nude) 0%, var(--nude-dark) 100%);
+    }
+    .login-card {
+      background: var(--branco);
+      border-radius: 1.5rem;
+      padding: 3rem 2.5rem;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 8px 40px rgba(92,61,46,.15);
+      text-align: center;
+    }
+    .login-card h1 { font-family: var(--font-display); font-size: 2rem; color: var(--marrom); margin-bottom: .5rem; }
+    .login-card p  { color: var(--marrom-mid); font-size: .9rem; margin-bottom: 2rem; }
+    .login-card input[type="password"] {
+      width: 100%; padding: .85rem 1rem; border: 1.5px solid var(--nude-dark);
+      border-radius: var(--radius); font-family: var(--font-body); font-size: 1rem;
+      color: var(--marrom); background: var(--creme); outline: none;
+      transition: border-color .2s; margin-bottom: 1rem;
+    }
+    .login-card input[type="password"]:focus { border-color: var(--terracota); }
+    .login-card button {
+      width: 100%; padding: .85rem; background: var(--terracota); color: #fff;
+      border: none; border-radius: var(--radius); font-family: var(--font-body);
+      font-size: 1rem; font-weight: 500; cursor: pointer; transition: background .2s, transform .15s;
+    }
+    .login-card button:hover  { background: var(--marrom-mid); }
+    .login-card button:active { transform: scale(.98); }
+    #login-erro { color: #c0392b; font-size: .85rem; margin-top: .75rem; display: none; }
+
+    /* ── PAINEL ─────────────────────────────────────────────────────────────── */
+    #admin-panel { display: none; flex-direction: column; min-height: 100vh; }
+
+    .admin-header {
+      background: var(--marrom); color: #fff; padding: 1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      position: sticky; top: 0; z-index: 50;
+    }
+    .admin-header-title { font-family: var(--font-display); font-size: 1.4rem; font-weight: 600; }
+    .admin-header-title span { color: var(--terracota); }
+    .admin-header-actions { display: flex; gap: .75rem; }
+    .admin-header-actions a,
+    .admin-header-actions button {
+      padding: .5rem 1rem; border-radius: var(--radius); font-size: .85rem;
+      font-family: var(--font-body); cursor: pointer; text-decoration: none;
+      border: none; transition: background .2s;
+    }
+    .btn-ver-site { background: rgba(255,255,255,.12); color: #fff; }
+    .btn-ver-site:hover { background: rgba(255,255,255,.22); }
+    .btn-sair { background: transparent; color: rgba(255,255,255,.6); }
+    .btn-sair:hover { color: #fff; }
+
+    /* Abas */
+    .admin-tabs {
+      background: var(--branco); border-bottom: 2px solid var(--nude-dark);
+      display: flex; gap: 0; overflow-x: auto; scrollbar-width: none;
+    }
+    .admin-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      padding: 1rem 1.4rem; border: none; background: transparent;
+      font-family: var(--font-body); font-size: .9rem; color: var(--marrom-mid);
+      cursor: pointer; white-space: nowrap; border-bottom: 3px solid transparent;
+      margin-bottom: -2px; transition: color .2s, border-color .2s;
+    }
+    .tab-btn:hover { color: var(--marrom); }
+    .tab-btn.active { color: var(--terracota); border-bottom-color: var(--terracota); font-weight: 500; }
+
+    .admin-body {
+      flex: 1; padding: 2rem 1.5rem 7rem;
+      max-width: 860px; margin-inline: auto; width: 100%;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* ── FORMULÁRIO ─────────────────────────────────────────────────────────── */
+    .form-group { margin-bottom: 1.4rem; }
+    .form-group label {
+      display: block; font-size: .82rem; font-weight: 500; color: var(--marrom-mid);
+      margin-bottom: .4rem; text-transform: uppercase; letter-spacing: .04em;
+    }
+    .form-group input[type="text"],
+    .form-group input[type="url"],
+    .form-group input[type="password"],
+    .form-group textarea {
+      width: 100%; padding: .75rem 1rem; border: 1.5px solid var(--nude-dark);
+      border-radius: var(--radius); font-family: var(--font-body); font-size: .95rem;
+      color: var(--marrom); background: var(--branco); outline: none;
+      resize: vertical; transition: border-color .2s;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus { border-color: var(--terracota); }
+    .form-hint { font-size: .78rem; color: var(--marrom-mid); margin-top: .35rem; opacity: .8; }
+
+    .section-sep { border: none; border-top: 1.5px solid var(--nude-dark); margin: 2.5rem 0; }
+    .section-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 600;
+      color: var(--marrom); margin-bottom: 1.5rem;
+    }
+
+    /* ── CARDS DE ITEM ──────────────────────────────────────────────────────── */
+    .item-list { display: flex; flex-direction: column; gap: 1rem; }
+    .item-card {
+      background: var(--branco); border: 1.5px solid var(--nude-dark);
+      border-radius: var(--radius); padding: 1.2rem 1.4rem; position: relative;
+    }
+    .item-card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 1rem; margin-bottom: .8rem;
+    }
+    .item-card-label { font-weight: 500; font-size: .9rem; color: var(--marrom); }
+    .item-card-actions { display: flex; gap: .5rem; }
+    .btn-icon {
+      background: none; border: none; cursor: pointer; padding: .3rem .5rem;
+      border-radius: .4rem; font-size: 1rem; color: var(--marrom-mid);
+      transition: background .15s, color .15s;
+    }
+    .btn-icon:hover { background: var(--nude); color: var(--marrom); }
+    .btn-icon.delete:hover { background: #fde8e8; color: #c0392b; }
+
+    /* ── UPLOAD DE FOTO ─────────────────────────────────────────────────────── */
+    .upload-row {
+      display: flex; align-items: center; gap: .7rem; margin-top: .5rem; flex-wrap: wrap;
+    }
+    .btn-upload {
+      display: inline-flex; align-items: center; gap: .4rem;
+      padding: .45rem .9rem; background: var(--nude); border: 1.5px solid var(--terracota);
+      border-radius: var(--radius); font-family: var(--font-body); font-size: .83rem;
+      color: var(--terracota); cursor: pointer; transition: background .2s; white-space: nowrap;
+    }
+    .btn-upload:hover { background: var(--nude-dark); }
+    .btn-upload:disabled { opacity: .5; cursor: not-allowed; }
+    .upload-status { font-size: .78rem; color: var(--marrom-mid); }
+    .upload-status.ok  { color: #27ae60; }
+    .upload-status.err { color: #c0392b; }
+
+    /* Preview de imagem */
+    .foto-preview {
+      width: 80px; height: 60px; object-fit: cover;
+      border-radius: .4rem; border: 1px solid var(--nude-dark);
+      display: none;
+    }
+    .foto-preview.visivel { display: block; }
+
+    /* ── BOTÃO ADICIONAR ────────────────────────────────────────────────────── */
+    .btn-add {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .65rem 1.2rem; background: var(--nude);
+      border: 1.5px dashed var(--terracota); border-radius: var(--radius);
+      font-family: var(--font-body); font-size: .9rem; color: var(--terracota);
+      cursor: pointer; transition: background .2s; margin-top: .5rem;
+    }
+    .btn-add:hover { background: var(--nude-dark); }
+
+    /* ── BARRA FIXA INFERIOR ────────────────────────────────────────────────── */
+    .admin-footer {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      background: var(--branco); border-top: 2px solid var(--nude-dark);
+      padding: 1rem 1.5rem; display: flex; align-items: center;
+      justify-content: flex-end; gap: .75rem; z-index: 40;
+    }
+    .btn-discard {
+      padding: .7rem 1.4rem; border-radius: var(--radius);
+      border: 1.5px solid var(--nude-dark); background: var(--branco);
+      font-family: var(--font-body); font-size: .9rem; color: var(--marrom-mid);
+      cursor: pointer; transition: border-color .2s, color .2s;
+    }
+    .btn-discard:hover { border-color: var(--marrom-mid); color: var(--marrom); }
+    .btn-save {
+      padding: .7rem 1.6rem; border-radius: var(--radius); border: none;
+      background: var(--terracota); color: #fff; font-family: var(--font-body);
+      font-size: .9rem; font-weight: 500; cursor: pointer;
+      transition: background .2s, transform .15s;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .btn-save:hover  { background: var(--marrom-mid); }
+    .btn-save:active { transform: scale(.97); }
+    .btn-save:disabled { opacity: .6; cursor: not-allowed; transform: none; }
+
+    /* ── TOAST ──────────────────────────────────────────────────────────────── */
+    #toast {
+      position: fixed; bottom: 5.5rem; left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--marrom); color: #fff; padding: .75rem 1.5rem;
+      border-radius: 2rem; font-size: .9rem; white-space: nowrap;
+      opacity: 0; transition: opacity .3s var(--ease), transform .3s var(--ease);
+      z-index: 100; pointer-events: none;
+    }
+    #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    #toast.sucesso { background: #27ae60; }
+    #toast.erro    { background: #c0392b; }
+
+    /* ── SPINNER ────────────────────────────────────────────────────────────── */
+    .spinner {
+      width: 16px; height: 16px; border: 2px solid rgba(255,255,255,.4);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin .7s linear infinite; display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div id="login-screen">
+  <div class="login-card">
+    <h1>Ana Clara <span style="color:var(--terracota)">Admin</span></h1>
+    <p>Painel de administração do site</p>
+    <input type="password" id="senha-input" placeholder="Senha" autocomplete="current-password" />
+    <button id="btn-entrar">Entrar</button>
+    <p id="login-erro">Senha incorreta. Tente novamente.</p>
+  </div>
+</div>
+
+<!-- PAINEL -->
+<div id="admin-panel">
+
+  <header class="admin-header">
+    <div class="admin-header-title">Ana Clara <span>Admin</span></div>
+    <div class="admin-header-actions">
+      <a href="../index.html" target="_blank" class="btn-ver-site">👁 Ver site</a>
+      <button class="btn-sair" id="btn-sair">Sair</button>
+    </div>
+  </header>
+
+  <nav class="admin-tabs" id="admin-tabs">
+    <button class="tab-btn active" data-tab="hero">Hero</button>
+    <button class="tab-btn" data-tab="sobre">Sobre</button>
+    <button class="tab-btn" data-tab="carrossel">Trajetória</button>
+    <button class="tab-btn" data-tab="certificados">Certificados</button>
+    <button class="tab-btn" data-tab="faq">FAQ</button>
+    <button class="tab-btn" data-tab="config">⚙ Config</button>
+  </nav>
+
+  <main class="admin-body">
+
+    <!-- ABA: HERO -->
+    <div id="tab-hero" class="tab-content active">
+      <p class="section-title">Seção Hero</p>
+      <div class="form-group">
+        <label>Nome</label>
+        <input type="text" id="hero-nome" placeholder="Ana Clara Tomaz" />
+      </div>
+      <div class="form-group">
+        <label>Tag / CRP</label>
+        <input type="text" id="hero-tag" placeholder="Psicóloga · CRP 09/22999" />
+      </div>
+      <div class="form-group">
+        <label>Subtítulo (suporta &lt;em&gt;)</label>
+        <textarea id="hero-subtitulo" rows="4"></textarea>
+        <p class="form-hint">Use &lt;em&gt;texto&lt;/em&gt; para itálico em terracota.</p>
+      </div>
+      <div class="form-group">
+        <label>Frase destaque (suporta &lt;em&gt;)</label>
+        <input type="text" id="hero-destaque" />
+      </div>
+      <div class="form-group">
+        <label>Caminho da foto</label>
+        <input type="text" id="hero-foto" placeholder="img/capa.jpeg" />
+        <p class="form-hint">Caminho relativo à raiz do site (ex: img/capa.jpeg).</p>
+      </div>
+    </div>
+
+    <!-- ABA: SOBRE -->
+    <div id="tab-sobre" class="tab-content">
+      <p class="section-title">Seção Sobre</p>
+      <div class="form-group">
+        <label>Tag</label>
+        <input type="text" id="sobre-tag" />
+      </div>
+      <div class="form-group">
+        <label>Título (suporta &lt;br&gt; e &lt;em&gt;)</label>
+        <input type="text" id="sobre-titulo" />
+      </div>
+
+      <hr class="section-sep" />
+      <p class="section-title">Parágrafos</p>
+      <div class="item-list" id="sobre-paragrafos-lista"></div>
+      <button class="btn-add" id="add-paragrafo">+ Adicionar parágrafo</button>
+
+      <hr class="section-sep" />
+      <p class="section-title">Cards de Formação</p>
+      <div class="item-list" id="sobre-formacao-lista"></div>
+      <button class="btn-add" id="add-formacao">+ Adicionar card</button>
+    </div>
+
+    <!-- ABA: CARROSSEL (TRAJETÓRIA) -->
+    <div id="tab-carrossel" class="tab-content">
+      <p class="section-title">Fotos da Trajetória</p>
+      <p style="color:var(--marrom-mid);font-size:.88rem;margin-bottom:1.5rem;">
+        Clique em <strong>📷 Upload</strong> para enviar a foto direto para o GitHub
+        (token configurado na aba ⚙ Config). Ou preencha o caminho manualmente se a foto
+        já está na pasta <code>img/</code>.
+      </p>
+      <div class="item-list" id="carrossel-lista"></div>
+      <button class="btn-add" id="add-slide">+ Adicionar foto</button>
+    </div>
+
+    <!-- ABA: CERTIFICADOS -->
+    <div id="tab-certificados" class="tab-content">
+      <p class="section-title">Certificados</p>
+      <p style="color:var(--marrom-mid);font-size:.88rem;margin-bottom:1.5rem;">
+        Cada certificado é exibido como um slide com foto e legenda — igual ao carrossel
+        da Trajetória. Clique em <strong>📷 Upload</strong> para enviar a imagem direto
+        para o GitHub. Deixe a lista vazia para ocultar a seção no site.
+      </p>
+      <div class="item-list" id="certificados-lista"></div>
+      <button class="btn-add" id="add-cert">+ Adicionar certificado</button>
+    </div>
+
+    <!-- ABA: FAQ -->
+    <div id="tab-faq" class="tab-content">
+      <p class="section-title">Perguntas Frequentes</p>
+      <div class="item-list" id="faq-lista-admin"></div>
+      <button class="btn-add" id="add-faq">+ Adicionar pergunta</button>
+    </div>
+
+    <!-- ABA: CONFIG -->
+    <div id="tab-config" class="tab-content">
+      <p class="section-title">Configuração do GitHub</p>
+      <p style="color:var(--marrom-mid);font-size:.88rem;margin-bottom:1.5rem;">
+        Necessário para salvar o <code>content.json</code> e fazer upload de fotos
+        direto no repositório. Os dados ficam <strong>só neste navegador</strong>.
+      </p>
+      <div class="form-group">
+        <label>Usuário / Organização</label>
+        <input type="text" id="cfg-usuario" placeholder="pedilha" />
+      </div>
+      <div class="form-group">
+        <label>Nome do repositório</label>
+        <input type="text" id="cfg-repo" placeholder="SiteAna" />
+      </div>
+      <div class="form-group">
+        <label>Branch</label>
+        <input type="text" id="cfg-branch" placeholder="master" />
+      </div>
+      <div class="form-group">
+        <label>Token de acesso pessoal (GitHub PAT)</label>
+        <input type="text" id="cfg-token" placeholder="ghp_..." autocomplete="off" />
+        <p class="form-hint">
+          Gere em <a href="https://github.com/settings/tokens" target="_blank" style="color:var(--terracota)">github.com/settings/tokens</a>
+          com permissão <code>repo</code>. Nunca compartilhe.
+        </p>
+      </div>
+      <div class="form-group">
+        <label>Caminho do content.json no repositório</label>
+        <input type="text" id="cfg-path" placeholder="content.json" />
+      </div>
+      <button class="btn-save" id="btn-salvar-config" style="margin-top:.5rem;">Salvar configuração</button>
+
+      <hr class="section-sep" />
+      <p class="section-title">Alterar senha</p>
+      <div class="form-group">
+        <label>Nova senha</label>
+        <input type="password" id="nova-senha" placeholder="••••••••••" autocomplete="new-password" />
+      </div>
+      <div class="form-group">
+        <label>Confirmar nova senha</label>
+        <input type="password" id="nova-senha-confirm" placeholder="••••••••••" autocomplete="new-password" />
+      </div>
+      <button class="btn-save" id="btn-alterar-senha" style="margin-top:.5rem;">Alterar senha</button>
+    </div>
+
+  </main>
+
+  <div class="admin-footer">
+    <button class="btn-discard" id="btn-descartar">↩ Descartar</button>
+    <button class="btn-save" id="btn-salvar">
+      <span id="btn-salvar-texto">💾 Salvar alterações</span>
+    </button>
+  </div>
+
+</div>
+
+<div id="toast"></div>
+
+<script>
+'use strict';
+
+/* ── UTILITÁRIOS ────────────────────────────────────────────────────────────── */
+function deepClone(obj) { return JSON.parse(JSON.stringify(obj)); }
+function esc(str) {
+  return String(str)
+    .replace(/&/g, '&amp;').replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function mostrarToast(msg, tipo = 'sucesso') {
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.className = 'show ' + tipo;
+  clearTimeout(el._t);
+  el._t = setTimeout(() => { el.className = ''; }, 4000);
+}
+
+async function sha256(str) {
+  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+  return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+}
+
+/* ── ESTADO ─────────────────────────────────────────────────────────────────── */
+let dadosOriginais = null;
+let dadosEditados  = null;
+
+/* ── LOGIN ──────────────────────────────────────────────────────────────────── */
+function getSenhaHash() {
+  return localStorage.getItem('siteana_senha_hash') || '_pendente_';
+}
+
+async function verificarSenha(input) {
+  return (await sha256(input)) === getSenhaHash();
+}
+
+document.getElementById('btn-entrar').addEventListener('click', tentarLogin);
+document.getElementById('senha-input').addEventListener('keydown', e => { if (e.key === 'Enter') tentarLogin(); });
+
+async function tentarLogin() {
+  const senha = document.getElementById('senha-input').value;
+  if (!senha) return;
+  if (await verificarSenha(senha)) {
+    document.getElementById('login-screen').style.display = 'none';
+    document.getElementById('admin-panel').style.display  = 'flex';
+    carregarConteudo();
+  } else {
+    const el = document.getElementById('login-erro');
+    el.style.display = 'block';
+    setTimeout(() => { el.style.display = 'none'; }, 3000);
+  }
+}
+
+document.getElementById('btn-sair').addEventListener('click', () => {
+  if (confirm('Sair do painel? Alterações não salvas serão perdidas.')) {
+    document.getElementById('admin-panel').style.display  = 'none';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('senha-input').value = '';
+    dadosOriginais = dadosEditados = null;
+  }
+});
+
+/* ── ABAS ───────────────────────────────────────────────────────────────────── */
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+/* ── UPLOAD DE FOTO (GitHub API) ────────────────────────────────────────────── */
+function getConfig() {
+  return JSON.parse(localStorage.getItem('siteana_config') || '{}');
+}
+
+/**
+ * Faz upload de um File para img/ no repositório GitHub.
+ * @param {File}     file      — arquivo selecionado pelo usuário
+ * @param {Function} onSuccess — callback(path) com o caminho relativo salvo
+ * @param {Function} onError   — callback(msg) em caso de erro
+ */
+async function uploadFoto(file, onSuccess, onError) {
+  const cfg = getConfig();
+
+  // Sanitiza o nome: remove espaços e caracteres especiais
+  const safeName = file.name.replace(/\s+/g, '_').replace(/[^a-zA-Z0-9._-]/g, '');
+  const path     = 'img/' + safeName;
+
+  // Lê o arquivo como base64
+  const base64 = await new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload  = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  // Sem GitHub configurado → apenas retorna o caminho sugerido
+  if (!cfg.token || !cfg.usuario || !cfg.repo) {
+    onSuccess(path, true); // true = não foi ao GitHub
+    return;
+  }
+
+  const branch  = cfg.branch || 'master';
+  const apiUrl  = `https://api.github.com/repos/${cfg.usuario}/${cfg.repo}/contents/${path}`;
+  const headers = { Authorization: 'token ' + cfg.token, 'Content-Type': 'application/json' };
+
+  // Verifica se o arquivo já existe (para pegar o sha e sobrescrever)
+  let sha = '';
+  try {
+    const r = await fetch(apiUrl + '?ref=' + branch, { headers });
+    if (r.ok) { sha = (await r.json()).sha || ''; }
+  } catch(_) {}
+
+  try {
+    const r = await fetch(apiUrl, {
+      method: 'PUT',
+      headers,
+      body: JSON.stringify({
+        message: 'admin: upload ' + safeName,
+        content: base64,
+        branch,
+        ...(sha ? { sha } : {}),
+      }),
+    });
+    if (!r.ok) {
+      const err = await r.json().catch(() => ({}));
+      throw new Error(err.message || 'Erro HTTP ' + r.status);
+    }
+    onSuccess(path, false);
+  } catch(err) {
+    onError(err.message);
+  }
+}
+
+/**
+ * Cria o bloco de upload (botão + status) e chama onPathResolved(path) com o caminho final.
+ * @param {Function} onPathResolved — recebe o caminho img/xxx.jpg após upload (ou seleção local)
+ * @param {HTMLElement} previewEl   — elemento <img> de preview (opcional)
+ */
+function criarBlocoUpload(onPathResolved, previewEl) {
+  const wrap = document.createElement('div');
+  wrap.className = 'upload-row';
+
+  const fileInput = document.createElement('input');
+  fileInput.type   = 'file';
+  fileInput.accept = 'image/*';
+  fileInput.style.display = 'none';
+
+  const btn = document.createElement('button');
+  btn.type      = 'button';
+  btn.className = 'btn-upload';
+  btn.innerHTML = '📷 Upload';
+
+  const status = document.createElement('span');
+  status.className = 'upload-status';
+
+  btn.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', async () => {
+    const file = fileInput.files[0];
+    if (!file) return;
+
+    btn.disabled     = true;
+    status.className = 'upload-status';
+    status.textContent = 'Enviando…';
+
+    await uploadFoto(
+      file,
+      (path, isLocal) => {
+        onPathResolved(path);
+        if (previewEl) {
+          previewEl.src = '../' + path;
+          previewEl.classList.add('visivel');
+        }
+        if (isLocal) {
+          status.className  = 'upload-status';
+          status.textContent = '⚠ GitHub não configurado. Arquivo: ' + path;
+        } else {
+          status.className  = 'upload-status ok';
+          status.textContent = '✅ ' + path;
+        }
+        btn.disabled = false;
+      },
+      (msg) => {
+        status.className  = 'upload-status err';
+        status.textContent = '❌ ' + msg;
+        btn.disabled = false;
+      }
+    );
+  });
+
+  wrap.appendChild(fileInput);
+  wrap.appendChild(btn);
+  wrap.appendChild(status);
+  return wrap;
+}
+
+/* ── SLIDE CARD (compartilhado por Trajetória e Certificados) ───────────────── */
+/**
+ * Cria um card de edição de slide (foto + legenda + upload + reordenar + remover).
+ * @param {string}   label       — "Foto N" ou "Certificado N"
+ * @param {object}   item        — { foto, legenda }
+ * @param {number}   index       — posição no array
+ * @param {Array}    lista       — referência ao array em dadosEditados
+ * @param {Function} onRerender  — função que redesenha a lista
+ */
+function criarSlideCard(label, item, index, lista, onRerender) {
+  const total = lista.length;
+  const card  = document.createElement('div');
+  card.className = 'item-card';
+
+  // Cabeçalho
+  const header = document.createElement('div');
+  header.className = 'item-card-header';
+  header.innerHTML = `
+    <span class="item-card-label">${label}</span>
+    <div class="item-card-actions">
+      ${index > 0         ? '<button class="btn-icon up"   title="Subir">↑</button>'   : ''}
+      ${index < total - 1 ? '<button class="btn-icon down" title="Descer">↓</button>'  : ''}
+      <button class="btn-icon delete" title="Remover">🗑</button>
+    </div>
+  `;
+  card.appendChild(header);
+
+  // Preview
+  const preview = document.createElement('img');
+  preview.className = 'foto-preview';
+  if (item.foto) {
+    preview.src = '../' + item.foto;
+    preview.classList.add('visivel');
+  }
+  card.appendChild(preview);
+
+  // Campo foto
+  const grupoFoto = document.createElement('div');
+  grupoFoto.className = 'form-group';
+  grupoFoto.style.marginBottom = '.8rem';
+  grupoFoto.innerHTML = `<label>Caminho da foto</label>`;
+
+  const inputFoto = document.createElement('input');
+  inputFoto.type        = 'text';
+  inputFoto.value       = item.foto || '';
+  inputFoto.placeholder = 'img/nome.jpeg';
+  inputFoto.addEventListener('input', e => {
+    lista[index].foto = e.target.value;
+    if (e.target.value) {
+      preview.src = '../' + e.target.value;
+      preview.classList.add('visivel');
+    } else {
+      preview.classList.remove('visivel');
+    }
+  });
+  grupoFoto.appendChild(inputFoto);
+
+  // Bloco de upload
+  const blocoUpload = criarBlocoUpload(path => {
+    lista[index].foto = path;
+    inputFoto.value   = path;
+  }, preview);
+  grupoFoto.appendChild(blocoUpload);
+  card.appendChild(grupoFoto);
+
+  // Campo legenda
+  const grupoLeg = document.createElement('div');
+  grupoLeg.className = 'form-group';
+  grupoLeg.style.marginBottom = '0';
+  grupoLeg.innerHTML = `<label>Legenda</label>`;
+
+  const textareaLeg = document.createElement('textarea');
+  textareaLeg.rows      = 2;
+  textareaLeg.textContent = item.legenda || '';
+  textareaLeg.addEventListener('input', e => { lista[index].legenda = e.target.value; });
+  grupoLeg.appendChild(textareaLeg);
+  card.appendChild(grupoLeg);
+
+  // Ações
+  header.querySelector('.delete')?.addEventListener('click', () => {
+    lista.splice(index, 1);
+    onRerender();
+  });
+  header.querySelector('.up')?.addEventListener('click', () => {
+    [lista[index-1], lista[index]] = [lista[index], lista[index-1]];
+    onRerender();
+  });
+  header.querySelector('.down')?.addEventListener('click', () => {
+    [lista[index], lista[index+1]] = [lista[index+1], lista[index]];
+    onRerender();
+  });
+
+  return card;
+}
+
+/* ── RENDER: CARROSSEL ──────────────────────────────────────────────────────── */
+function renderCarrossel(lista) {
+  const container = document.getElementById('carrossel-lista');
+  container.innerHTML = '';
+  lista.forEach((slide, i) => {
+    container.appendChild(
+      criarSlideCard('Foto ' + (i + 1), slide, i, lista, () => renderCarrossel(dadosEditados.carrossel))
+    );
+  });
+}
+
+document.getElementById('add-slide').addEventListener('click', () => {
+  dadosEditados.carrossel.push({ foto: '', legenda: '' });
+  renderCarrossel(dadosEditados.carrossel);
+});
+
+/* ── RENDER: CERTIFICADOS ───────────────────────────────────────────────────── */
+function renderCertificados(lista) {
+  const container = document.getElementById('certificados-lista');
+  container.innerHTML = '';
+  lista.forEach((cert, i) => {
+    container.appendChild(
+      criarSlideCard('Certificado ' + (i + 1), cert, i, lista, () => renderCertificados(dadosEditados.certificados))
+    );
+  });
+}
+
+document.getElementById('add-cert').addEventListener('click', () => {
+  dadosEditados.certificados.push({ foto: '', legenda: '' });
+  renderCertificados(dadosEditados.certificados);
+});
+
+/* ── RENDER: PARÁGRAFOS ─────────────────────────────────────────────────────── */
+function renderParagrafos(lista) {
+  const container = document.getElementById('sobre-paragrafos-lista');
+  container.innerHTML = '';
+  lista.forEach((p, i) => {
+    container.appendChild(criarCardTexto(
+      'Parágrafo ' + (i + 1), p, 4,
+      val => { dadosEditados.sobre.paragrafos[i] = val; },
+      ()  => { dadosEditados.sobre.paragrafos.splice(i, 1); renderParagrafos(dadosEditados.sobre.paragrafos); }
+    ));
+  });
+}
+
+document.getElementById('add-paragrafo').addEventListener('click', () => {
+  dadosEditados.sobre.paragrafos.push('');
+  renderParagrafos(dadosEditados.sobre.paragrafos);
+});
+
+/* ── RENDER: FORMAÇÃO ───────────────────────────────────────────────────────── */
+function renderFormacao(lista) {
+  const container = document.getElementById('sobre-formacao-lista');
+  container.innerHTML = '';
+  lista.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    card.innerHTML = `
+      <div class="item-card-header">
+        <span class="item-card-label">Card ${i + 1}</span>
+        <div class="item-card-actions">
+          <button class="btn-icon delete" title="Remover">🗑</button>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:.8rem">
+        <label>Ícone (emoji)</label>
+        <input type="text" class="f-icone" value="${esc(item.icone||'')}" style="max-width:80px" />
+      </div>
+      <div class="form-group" style="margin-bottom:.8rem">
+        <label>Título</label>
+        <input type="text" class="f-titulo" value="${esc(item.titulo||'')}" />
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Descrição</label>
+        <input type="text" class="f-desc" value="${esc(item.descricao||'')}" />
+      </div>
+    `;
+    card.querySelector('.f-icone').addEventListener('input',  e => { dadosEditados.sobre.formacao[i].icone    = e.target.value; });
+    card.querySelector('.f-titulo').addEventListener('input', e => { dadosEditados.sobre.formacao[i].titulo   = e.target.value; });
+    card.querySelector('.f-desc').addEventListener('input',   e => { dadosEditados.sobre.formacao[i].descricao= e.target.value; });
+    card.querySelector('.delete').addEventListener('click',   ()  => {
+      dadosEditados.sobre.formacao.splice(i, 1);
+      renderFormacao(dadosEditados.sobre.formacao);
+    });
+    container.appendChild(card);
+  });
+}
+
+document.getElementById('add-formacao').addEventListener('click', () => {
+  dadosEditados.sobre.formacao.push({ icone:'🎓', titulo:'', descricao:'' });
+  renderFormacao(dadosEditados.sobre.formacao);
+});
+
+/* ── RENDER: FAQ ────────────────────────────────────────────────────────────── */
+function renderFaq(lista) {
+  const container = document.getElementById('faq-lista-admin');
+  container.innerHTML = '';
+  lista.forEach((item, i) => {
+    const card = document.createElement('div');
+    card.className = 'item-card';
+    card.innerHTML = `
+      <div class="item-card-header">
+        <span class="item-card-label">Pergunta ${i + 1}</span>
+        <div class="item-card-actions">
+          <button class="btn-icon delete" title="Remover">🗑</button>
+        </div>
+      </div>
+      <div class="form-group" style="margin-bottom:.8rem">
+        <label>Pergunta</label>
+        <input type="text" class="f-p" value="${esc(item.pergunta||'')}" />
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Resposta (suporta &lt;br&gt;)</label>
+        <textarea class="f-r" rows="4">${esc(item.resposta||'')}</textarea>
+      </div>
+    `;
+    card.querySelector('.f-p').addEventListener('input', e => { dadosEditados.faq[i].pergunta = e.target.value; });
+    card.querySelector('.f-r').addEventListener('input', e => { dadosEditados.faq[i].resposta = e.target.value; });
+    card.querySelector('.delete').addEventListener('click', () => {
+      dadosEditados.faq.splice(i, 1);
+      renderFaq(dadosEditados.faq);
+    });
+    container.appendChild(card);
+  });
+}
+
+document.getElementById('add-faq').addEventListener('click', () => {
+  dadosEditados.faq.push({ pergunta:'', resposta:'' });
+  renderFaq(dadosEditados.faq);
+});
+
+/* ── HELPER: CARD DE TEXTO SIMPLES ─────────────────────────────────────────── */
+function criarCardTexto(label, valor, rows, onChange, onDelete) {
+  const card = document.createElement('div');
+  card.className = 'item-card';
+  card.innerHTML = `
+    <div class="item-card-header">
+      <span class="item-card-label">${label}</span>
+      <div class="item-card-actions">
+        <button class="btn-icon delete" title="Remover">🗑</button>
+      </div>
+    </div>
+    <textarea rows="${rows}">${esc(valor)}</textarea>
+  `;
+  card.querySelector('textarea').addEventListener('input', e => onChange(e.target.value));
+  card.querySelector('.delete').addEventListener('click', onDelete);
+  return card;
+}
+
+/* ── CARREGAR CONTENT.JSON ──────────────────────────────────────────────────── */
+async function carregarConteudo() {
+  try {
+    const r = await fetch('../content.json?v=' + Date.now());
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    dadosOriginais = await r.json();
+  } catch(err) {
+    mostrarToast('Erro ao carregar content.json: ' + err.message, 'erro');
+    dadosOriginais = { hero:{}, sobre:{ paragrafos:[], formacao:[] }, carrossel:[], certificados:[], faq:[] };
+  }
+  dadosEditados = deepClone(dadosOriginais);
+  preencherFormularios();
+  carregarConfig();
+}
+
+function setVal(id, v) {
+  const el = document.getElementById(id);
+  if (el) el.value = v;
+}
+
+function preencherFormularios() {
+  const d = dadosEditados;
+  setVal('hero-nome',      d.hero?.nome      || '');
+  setVal('hero-tag',       d.hero?.tag       || '');
+  setVal('hero-subtitulo', d.hero?.subtitulo || '');
+  setVal('hero-destaque',  d.hero?.destaque  || '');
+  setVal('hero-foto',      d.hero?.foto      || '');
+  setVal('sobre-tag',      d.sobre?.tag      || '');
+  setVal('sobre-titulo',   d.sobre?.titulo   || '');
+  renderParagrafos(d.sobre?.paragrafos || []);
+  renderFormacao(d.sobre?.formacao     || []);
+  renderCarrossel(d.carrossel          || []);
+  renderCertificados(d.certificados    || []);
+  renderFaq(d.faq                      || []);
+}
+
+/* ── COLETA CAMPOS HERO / SOBRE (outros já atualizam em tempo real) ──────────── */
+function coletarFormularios() {
+  dadosEditados.hero = {
+    nome:      document.getElementById('hero-nome').value,
+    tag:       document.getElementById('hero-tag').value,
+    subtitulo: document.getElementById('hero-subtitulo').value,
+    destaque:  document.getElementById('hero-destaque').value,
+    foto:      document.getElementById('hero-foto').value,
+  };
+  dadosEditados.sobre.tag    = document.getElementById('sobre-tag').value;
+  dadosEditados.sobre.titulo = document.getElementById('sobre-titulo').value;
+}
+
+/* ── SALVAR NO GITHUB ───────────────────────────────────────────────────────── */
+async function salvarNoGitHub(jsonStr) {
+  const cfg     = getConfig();
+  if (!cfg.token || !cfg.usuario || !cfg.repo) {
+    throw new Error('Configure o GitHub na aba ⚙ Config antes de salvar.');
+  }
+  const branch  = cfg.branch || 'master';
+  const path    = cfg.path   || 'content.json';
+  const apiBase = `https://api.github.com/repos/${cfg.usuario}/${cfg.repo}/contents/${path}`;
+  const headers = { Authorization: 'token ' + cfg.token, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' };
+
+  let sha = '';
+  try {
+    const r = await fetch(apiBase + '?ref=' + branch, { headers });
+    if (r.ok) sha = (await r.json()).sha || '';
+  } catch(_) {}
+
+  const r2 = await fetch(apiBase, {
+    method: 'PUT', headers,
+    body: JSON.stringify({
+      message: 'admin: atualizar content.json',
+      content: btoa(unescape(encodeURIComponent(jsonStr))),
+      branch,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+  if (!r2.ok) {
+    const err = await r2.json().catch(() => ({}));
+    throw new Error(err.message || 'Erro ' + r2.status);
+  }
+}
+
+/* ── BOTÃO SALVAR ───────────────────────────────────────────────────────────── */
+document.getElementById('btn-salvar').addEventListener('click', async () => {
+  coletarFormularios();
+  const btn = document.getElementById('btn-salvar');
+  const txt = document.getElementById('btn-salvar-texto');
+  btn.disabled = true;
+  txt.innerHTML = '<span class="spinner"></span> Salvando…';
+
+  try {
+    const jsonStr = JSON.stringify(dadosEditados, null, 2);
+    const cfg     = getConfig();
+
+    if (cfg.token && cfg.usuario && cfg.repo) {
+      await salvarNoGitHub(jsonStr);
+      mostrarToast('✅ Salvo no GitHub com sucesso!', 'sucesso');
+    } else {
+      const blob = new Blob([jsonStr], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href     = URL.createObjectURL(blob);
+      a.download = 'content.json';
+      a.click();
+      mostrarToast('⬇ GitHub não configurado — arquivo baixado localmente.', 'sucesso');
+    }
+    dadosOriginais = deepClone(dadosEditados);
+  } catch(err) {
+    mostrarToast('❌ ' + err.message, 'erro');
+  } finally {
+    btn.disabled = false;
+    txt.textContent = '💾 Salvar alterações';
+  }
+});
+
+/* ── BOTÃO DESCARTAR ────────────────────────────────────────────────────────── */
+document.getElementById('btn-descartar').addEventListener('click', () => {
+  if (!dadosOriginais) return;
+  if (confirm('Descartar todas as alterações não salvas?')) {
+    dadosEditados = deepClone(dadosOriginais);
+    preencherFormularios();
+    mostrarToast('Alterações descartadas.', 'sucesso');
+  }
+});
+
+/* ── CONFIG ─────────────────────────────────────────────────────────────────── */
+function carregarConfig() {
+  const cfg = getConfig();
+  setVal('cfg-usuario', cfg.usuario || '');
+  setVal('cfg-repo',    cfg.repo    || '');
+  setVal('cfg-branch',  cfg.branch  || 'master');
+  setVal('cfg-token',   cfg.token   || '');
+  setVal('cfg-path',    cfg.path    || 'content.json');
+}
+
+document.getElementById('btn-salvar-config').addEventListener('click', () => {
+  localStorage.setItem('siteana_config', JSON.stringify({
+    usuario: document.getElementById('cfg-usuario').value.trim(),
+    repo:    document.getElementById('cfg-repo').value.trim(),
+    branch:  document.getElementById('cfg-branch').value.trim() || 'master',
+    token:   document.getElementById('cfg-token').value.trim(),
+    path:    document.getElementById('cfg-path').value.trim()   || 'content.json',
+  }));
+  mostrarToast('Configuração salva!', 'sucesso');
+});
+
+/* ── ALTERAR SENHA ──────────────────────────────────────────────────────────── */
+document.getElementById('btn-alterar-senha').addEventListener('click', async () => {
+  const nova    = document.getElementById('nova-senha').value;
+  const confirm = document.getElementById('nova-senha-confirm').value;
+  if (!nova)            { mostrarToast('Digite a nova senha.', 'erro'); return; }
+  if (nova !== confirm) { mostrarToast('As senhas não coincidem.', 'erro'); return; }
+  if (nova.length < 8)  { mostrarToast('Mínimo 8 caracteres.', 'erro'); return; }
+  localStorage.setItem('siteana_senha_hash', await sha256(nova));
+  document.getElementById('nova-senha').value = '';
+  document.getElementById('nova-senha-confirm').value = '';
+  mostrarToast('Senha alterada com sucesso!', 'sucesso');
+});
+
+/* ── INICIALIZAÇÃO: define hash da senha padrão se ainda não existe ─────────── */
+(async () => {
+  if (!localStorage.getItem('siteana_senha_hash')) {
+    localStorage.setItem('siteana_senha_hash', await sha256('anaclaratomaz2025'));
+  }
+})();
+</script>
+</body>
+</html>
