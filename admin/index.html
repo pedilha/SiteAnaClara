@@ -241,13 +241,26 @@
 
 <!-- LOGIN -->
 <div id="login-screen">
-  <div class="login-card">
+
+  <!-- Tela de login normal -->
+  <div class="login-card" id="card-login">
     <h1>Ana Clara <span style="color:var(--terracota)">Admin</span></h1>
     <p>Painel de administração do site</p>
     <input type="password" id="senha-input" placeholder="Senha" autocomplete="current-password" />
     <button id="btn-entrar">Entrar</button>
     <p id="login-erro">Senha incorreta. Tente novamente.</p>
   </div>
+
+  <!-- Tela de primeiro acesso (sem senha definida) -->
+  <div class="login-card" id="card-primeiro-acesso" style="display:none;">
+    <h1>Ana Clara <span style="color:var(--terracota)">Admin</span></h1>
+    <p>Primeiro acesso — defina sua senha para continuar.</p>
+    <input type="password" id="primeira-senha" placeholder="Criar senha (mín. 8 caracteres)" autocomplete="new-password" />
+    <input type="password" id="primeira-senha-confirm" placeholder="Confirmar senha" autocomplete="new-password" style="margin-top:.75rem;" />
+    <button id="btn-criar-senha" style="margin-top:.75rem;">Criar senha e entrar</button>
+    <p id="primeiro-acesso-erro" style="color:#c0392b;font-size:.85rem;margin-top:.75rem;display:none;"></p>
+  </div>
+
 </div>
 
 <!-- PAINEL -->
@@ -442,13 +455,20 @@ let dadosEditados  = null;
 
 /* ── LOGIN ──────────────────────────────────────────────────────────────────── */
 function getSenhaHash() {
-  return localStorage.getItem('siteana_senha_hash') || '_pendente_';
+  return localStorage.getItem('siteana_senha_hash'); // null se nunca definida
 }
 
 async function verificarSenha(input) {
   return (await sha256(input)) === getSenhaHash();
 }
 
+function entrarNoPainel() {
+  document.getElementById('login-screen').style.display = 'none';
+  document.getElementById('admin-panel').style.display  = 'flex';
+  carregarConteudo();
+}
+
+// Login normal
 document.getElementById('btn-entrar').addEventListener('click', tentarLogin);
 document.getElementById('senha-input').addEventListener('keydown', e => { if (e.key === 'Enter') tentarLogin(); });
 
@@ -456,14 +476,33 @@ async function tentarLogin() {
   const senha = document.getElementById('senha-input').value;
   if (!senha) return;
   if (await verificarSenha(senha)) {
-    document.getElementById('login-screen').style.display = 'none';
-    document.getElementById('admin-panel').style.display  = 'flex';
-    carregarConteudo();
+    entrarNoPainel();
   } else {
     const el = document.getElementById('login-erro');
     el.style.display = 'block';
     setTimeout(() => { el.style.display = 'none'; }, 3000);
   }
+}
+
+// Primeiro acesso — criação de senha
+document.getElementById('btn-criar-senha').addEventListener('click', criarPrimeiraSenha);
+document.getElementById('primeira-senha-confirm').addEventListener('keydown', e => { if (e.key === 'Enter') criarPrimeiraSenha(); });
+
+async function criarPrimeiraSenha() {
+  const nova    = document.getElementById('primeira-senha').value;
+  const confirm = document.getElementById('primeira-senha-confirm').value;
+  const erro    = document.getElementById('primeiro-acesso-erro');
+
+  if (!nova || nova.length < 8) {
+    erro.textContent = 'A senha deve ter pelo menos 8 caracteres.';
+    erro.style.display = 'block'; return;
+  }
+  if (nova !== confirm) {
+    erro.textContent = 'As senhas não coincidem.';
+    erro.style.display = 'block'; return;
+  }
+  localStorage.setItem('siteana_senha_hash', await sha256(nova));
+  entrarNoPainel();
 }
 
 document.getElementById('btn-sair').addEventListener('click', () => {
@@ -472,6 +511,10 @@ document.getElementById('btn-sair').addEventListener('click', () => {
     document.getElementById('login-screen').style.display = 'flex';
     document.getElementById('senha-input').value = '';
     dadosOriginais = dadosEditados = null;
+    // Garante que o card correto está visível
+    const temSenha = !!getSenhaHash();
+    document.getElementById('card-login').style.display           = temSenha ? 'block' : 'none';
+    document.getElementById('card-primeiro-acesso').style.display = temSenha ? 'none'  : 'block';
   }
 });
 
@@ -1013,10 +1056,16 @@ document.getElementById('btn-alterar-senha').addEventListener('click', async () 
   mostrarToast('Senha alterada com sucesso!', 'sucesso');
 });
 
-/* ── INICIALIZAÇÃO: define hash da senha padrão se ainda não existe ─────────── */
-(async () => {
-  if (!localStorage.getItem('siteana_senha_hash')) {
-    localStorage.setItem('siteana_senha_hash', await sha256('anaclaratomaz2025'));
+/* ── INICIALIZAÇÃO: decide qual tela mostrar ────────────────────────────────── */
+(() => {
+  if (getSenhaHash()) {
+    // Já tem senha definida → mostra login normal
+    document.getElementById('card-login').style.display          = 'block';
+    document.getElementById('card-primeiro-acesso').style.display = 'none';
+  } else {
+    // Nenhuma senha ainda → mostra tela de criação
+    document.getElementById('card-login').style.display          = 'none';
+    document.getElementById('card-primeiro-acesso').style.display = 'block';
   }
 })();
 </script>
