@@ -15,25 +15,55 @@
       "Minha atuação é guiada pela escuta ativa, empatia e ciência, respeitando a singularidade de cada história!"
     ],
     "formacao": [
-      { "icone": "🎓", "titulo": "Graduação em Psicologia", "descricao": "PUC-GO · 2025" },
-      { "icone": "📋", "titulo": "Registro Profissional", "descricao": "CRP 09/22999 · Atuação ética e comprometida" },
-      { "icone": "💡", "titulo": "Abordagem", "descricao": "Terapia Cognitiva - Comportamental & Contextuais" }
+      {
+        "icone": "🎓",
+        "titulo": "Graduação em Psicologia",
+        "descricao": "PUC-GO · 2025"
+      },
+      {
+        "icone": "📋",
+        "titulo": "Registro Profissional",
+        "descricao": "CRP 09/22999 · Atuação ética e comprometida"
+      },
+      {
+        "icone": "💡",
+        "titulo": "Abordagem",
+        "descricao": "Terapia Cognitiva - Comportamental & Contextuais"
+      }
     ]
   },
   "carrossel": [
-    { "foto": "img/ana-clara-merito.jpeg", "legenda": "Formada com Mérito Acadêmico Magna Cum Laude" },
-    { "foto": "img/ana-clara-professor.jpeg", "legenda": "Recebendo diploma do professor e coordenador do curso de Psicologia da PUC Goiás Prof. Me. Flávio da Silva Borges" },
-    { "foto": "img/presidente-liga.jpeg", "legenda": "Presidente por 1 ano da liga acadêmica de psicoterapia infanto-juvenil da PUC Goiás" },
-    { "foto": "img/estagio-obrigatorio.jpeg", "legenda": "Estágio obrigatório da graduação: 1 semestre na pediatria do Hospital das Clínicas, experiência atendendo e acolhendo adolescentes e seus responsáveis" },
-    { "foto": "img/TCC.jpeg", "legenda": "TCC defendido e aprovado com nota máxima" }
+    {
+      "foto": "img/ana-clara-merito.jpeg",
+      "legenda": "Formada com Mérito Acadêmico Magna Cum Laude"
+    },
+    {
+      "foto": "img/ana-clara-professor.jpeg",
+      "legenda": "Recebendo diploma do professor e coordenador do curso de Psicologia da PUC Goiás Prof. Me. Flávio da Silva Borges"
+    },
+    {
+      "foto": "img/presidente-liga.jpeg",
+      "legenda": "Presidente por 1 ano da liga acadêmica de psicoterapia infanto-juvenil da PUC Goiás"
+    },
+    {
+      "foto": "img/estagio-obrigatorio.jpeg",
+      "legenda": "Estágio obrigatório da graduação: 1 semestre na pediatria do Hospital das Clínicas, experiência atendendo e acolhendo adolescentes e seus responsáveis"
+    },
+    {
+      "foto": "img/TCC.jpeg",
+      "legenda": "TCC defendido e aprovado com nota máxima"
+    }
   ],
   "certificados": [
-    { "foto": "img/ana-clara-merito.jpeg", "legenda": "Mérito Acadêmico Magna Cum Laude — PUC Goiás · 2025" }
+    {
+      "foto": "img/ana-clara-merito.jpeg",
+      "legenda": "Mérito Acadêmico Magna Cum Laude — PUC Goiás · 2025"
+    }
   ],
   "faq": [
     {
       "pergunta": "Como funciona a primeira sessão?",
-      "resposta": "A primeira sessão é um momento de conversa leve, pensado para te acolher. Conversamos sobre o que te trouxe até aqui, suas expectativas, além de eu te apresentar o contrato terapêutico.<br><br>Também irei te explicar como funciona a terapia comigo (frequência, valores, dinâmica), será um momento para você tirar dúvidas!"
+      "resposta": "A primeira sessão é um momento de conversa leve, pensado para te acolher. Conversamos sobre o que te trouxe até aqui, suas expectativas, além de eu te apresentar o contrato terapêutico.<br><br>Também irei te explicar como funciona a terapia comigo (frequência, valores, dinâmica), será um momento para você tirar dúvidas!!"
     },
     {
       "pergunta": "O atendimento é online?",
