@@ -16,17 +16,17 @@
     ],
     "formacao": [
       {
-        "icone": "🎓",
-        "titulo": "Graduação em Psicologia",
-        "descricao": "PUC-GO · 2025"
+        "icone": "",
+        "titulo": "Pós-graduanda em Neuropsicologia ",
+        "descricao": "IAPG"
       },
       {
-        "icone": "📋",
+        "icone": "",
         "titulo": "Registro Profissional",
         "descricao": "CRP 09/22999 · Atuação ética e comprometida"
       },
       {
-        "icone": "💡",
+        "icone": "",
         "titulo": "Abordagem",
         "descricao": "Terapia Cognitiva - Comportamental & Contextuais"
       }
