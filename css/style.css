@@ -32,13 +32,13 @@
 ============================================================================= */
 :root {
   /* Paleta de cores */
-  --nude:        #F2EAE0;   /* fundo principal */
-  --nude-dark:   #E8DDD0;   /* fundo alternativo */
-  --terracota:   #C4896A;   /* acento quente — CTAs e destaques */
+  --nude: #ffffff;   /* fundo principal */
+  --nude-dark: #ffffff;   /* fundo alternativo */
+  --terracota: #a87257;   /* acento quente — CTAs e destaques */
   --salvia:      #8FA88A;   /* acento verde */
   --marrom:      #5C3D2E;   /* texto principal */
   --marrom-mid:  #7A5544;   /* texto secundário */
-  --creme:       #FBF7F2;   /* superfícies leves */
+  --creme: #ffffff;   /* superfícies leves */
   --branco:      #FFFFFF;
 
   /* Tipografia */
@@ -212,7 +212,7 @@ section {
 
 /* Aparece ao rolar (classe adicionada por JS) */
 #navbar.scrolled {
-  background: rgba(242, 234, 224, 0.92);
+  background: rgba(220, 194, 171, 0.6);
   backdrop-filter: blur(12px);
   box-shadow: 0 2px 24px rgba(92, 61, 46, 0.08);
 }
