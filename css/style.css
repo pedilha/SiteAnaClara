@@ -31,15 +31,17 @@
    Variáveis CSS globais. Altere aqui para mudar cores e fontes no site inteiro.
 ============================================================================= */
 :root {
-  /* Paleta de cores */
-  --nude: #ffffff;   /* fundo principal */
-  --nude-dark: #ffffff;   /* fundo alternativo */
-  --terracota: #a87257;   /* acento quente — CTAs e destaques */
-  --salvia:      #8FA88A;   /* acento verde */
-  --marrom:      #5C3D2E;   /* texto principal */
-  --marrom-mid:  #7A5544;   /* texto secundário */
-  --creme: #ffffff;   /* superfícies leves */
-  --branco:      #FFFFFF;
+  /* Fundos — warm-tinted neutrals, nunca branco puro */
+  --nude:       oklch(97.5% 0.009 68);   /* fundo principal — creme clarissimo */
+  --nude-dark:  oklch(95.5% 0.014 65);   /* fundo alternativo — creme vísivel */
+  --creme:      oklch(96.5% 0.012 67);   /* superfícies leves */
+  --branco:     oklch(99%   0.004 70);   /* elementos UI — quase-branco quente */
+
+  /* Paleta de marca */
+  --terracota:  oklch(59%   0.100 48);   /* acento quente — CTAs e destaques */
+  --salvia:     oklch(68%   0.055 145);  /* acento verde */
+  --marrom:     oklch(36%   0.065 42);   /* texto principal */
+  --marrom-mid: oklch(46%   0.068 41);   /* texto secundário */
 
   /* Tipografia */
   --font-display: 'Cormorant Garamond', Georgia, serif;
@@ -50,8 +52,8 @@
   --radius-sm:    0.75rem;
   --max-w:        1100px;
 
-  /* Curva de animação padrão */
-  --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  /* Curva de animação padrão — ease-out-expo */
+  --ease-smooth:  cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 
@@ -105,6 +107,7 @@ h1, h2, h3, h4 {
 h1 { font-size: clamp(2.8rem, 8vw, 5.5rem); }
 h2 { font-size: clamp(2rem,   5vw, 3.2rem); }
 h3 { font-size: clamp(1.3rem, 3vw, 1.8rem); }
+h4 { font-size: clamp(0.95rem, 2vw, 1.1rem); }
 p  { font-size: clamp(0.95rem, 2.5vw, 1.05rem); }
 
 /* Label de seção (ex: "Quem sou eu", "Para quem é") */
@@ -149,8 +152,20 @@ section {
   border: none;
   cursor: pointer;
   transition:
-    transform  0.25s var(--ease-smooth),
-    box-shadow 0.25s var(--ease-smooth);
+    background  0.18s var(--ease-smooth),
+    color       0.18s var(--ease-smooth),
+    transform   0.18s var(--ease-smooth),
+    box-shadow  0.18s var(--ease-smooth);
+}
+
+.btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
+
+.btn:active {
+  transform: scale(0.97);
+  transition-duration: 0.1s;
 }
 
 /* Botão primário — terracota sólido */
@@ -159,7 +174,7 @@ section {
   color: var(--branco);
 }
 .btn-primary:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 12px 32px rgba(196, 137, 106, 0.4);
 }
 
@@ -172,7 +187,7 @@ section {
 .btn-outline:hover {
   background: var(--marrom);
   color: var(--branco);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
 }
 
 /* Botões dentro da seção CTA */
@@ -182,7 +197,7 @@ section {
   font-weight: 500;
 }
 .btn-cta-white:hover {
-  transform: translateY(-3px);
+  transform: translateY(-2px) scale(1.02);
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
 }
 
@@ -193,7 +208,7 @@ section {
 }
 .btn-cta-ghost:hover {
   background: rgba(255, 255, 255, 0.15);
-  transform: translateY(-2px);
+  transform: translateY(-2px) scale(1.02);
 }
 
 
@@ -207,15 +222,17 @@ section {
   right: 0;
   z-index: 100;
   padding: 1.2rem 0;
-  transition: background 0.4s, box-shadow 0.4s;
+  transition: background 0.2s var(--ease-smooth), box-shadow 0.2s var(--ease-smooth);
 }
 
 /* Aparece ao rolar (classe adicionada por JS) */
 #navbar.scrolled {
-  background: rgba(220, 194, 171, 0.6);
+  background: oklch(95.5% 0.014 65 / 0.88);
   backdrop-filter: blur(12px);
-  box-shadow: 0 2px 24px rgba(92, 61, 46, 0.08);
+  box-shadow: 0 2px 24px oklch(36% 0.065 42 / 0.08);
 }
+
+#navCta { display: none; }
 
 .nav-inner {
   display: flex;
@@ -280,18 +297,32 @@ section {
    07. MENU MOBILE (overlay)
 ============================================================================= */
 .mobile-menu {
-  display: none;           /* JS adiciona .open para mostrar */
   position: fixed;
   inset: 0;
   background: var(--nude);
   z-index: 99;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 2.5rem;
+  /* Estado inicial — invisível mas no DOM para poder animar */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition:
+    opacity    0.25s var(--ease-smooth),
+    transform  0.25s var(--ease-smooth),
+    visibility 0s    0.25s;
 }
 .mobile-menu.open {
-  display: flex;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition:
+    opacity    0.25s var(--ease-smooth),
+    transform  0.25s var(--ease-smooth),
+    visibility 0s    0s;
 }
 .mobile-menu a {
   font-family: var(--font-display);
@@ -464,6 +495,14 @@ section {
   font-family: var(--font-display);
 }
 
+/* Foto principal do hero */
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-lg);
+  object-fit: cover;
+}
+
 /* Linha decorativa lateral */
 .hero-line {
   position: absolute;
@@ -485,16 +524,6 @@ section {
   overflow: hidden;
 }
 
-/* Barra colorida lateral esquerda */
-#sobre::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 4px;
-  height: 100%;
-  background: linear-gradient(to bottom, var(--terracota), var(--salvia));
-}
 
 .sobre-grid {
   display: grid;
@@ -567,6 +596,7 @@ section {
   flex-shrink: 0;
   margin-top: 0.1rem;
 }
+.formacao-icon:empty { display: none; }
 .formacao-item strong {
   display: block;
   font-size: 0.9rem;
@@ -610,11 +640,13 @@ section {
   overflow: hidden;
   transition:
     transform   0.3s var(--ease-smooth),
-    box-shadow  0.3s;
+    box-shadow  0.3s var(--ease-smooth);
 }
-.publico-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 40px rgba(92, 61, 46, 0.1);
+@media (hover: hover) and (pointer: fine) {
+  .publico-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(92, 61, 46, 0.1);
+  }
 }
 
 /* Faixa de cor no topo de cada card */
@@ -677,11 +709,13 @@ section {
   border-radius: var(--radius-sm);
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  transition: background 0.3s, transform 0.3s;
+  transition: background 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
 }
-.beneficio-item:hover {
-  background: rgba(196, 137, 106, 0.12);
-  transform: translateX(4px);
+@media (hover: hover) and (pointer: fine) {
+  .beneficio-item:hover {
+    background: rgba(196, 137, 106, 0.12);
+    transform: translateX(4px);
+  }
 }
 
 .beneficio-num {
@@ -835,7 +869,7 @@ section {
 /* Track — flexbox horizontal; JS move via transform */
 .carousel-track {
   display: flex;
-  transition: transform 0.5s var(--ease-smooth);
+  transition: transform 0.35s var(--ease-smooth);
   will-change: transform;
 }
 
@@ -860,10 +894,12 @@ section {
   height: 100%;
   object-fit: cover;
   display: block;
-  transition: transform 0.6s var(--ease-smooth);
+  transition: transform 0.35s var(--ease-smooth);
 }
-.carousel-slide:hover .carousel-img-wrap img {
-  transform: scale(1.03);
+@media (hover: hover) and (pointer: fine) {
+  .carousel-slide:hover .carousel-img-wrap img {
+    transform: scale(1.03);
+  }
 }
 
 /* Placeholder visual quando a imagem não carrega */
@@ -880,7 +916,7 @@ section {
   color: var(--marrom-mid);
   text-align: center;
   border-radius: 0 0 var(--radius-lg) var(--radius-lg);
-  border-top: 2px solid var(--nude-dark);
+  border-top: 1px solid oklch(90% 0.018 65);
 }
 
 /* Botões prev / next */
@@ -980,11 +1016,13 @@ section {
   border-radius: var(--radius-sm);
   padding: 1.4rem 1.6rem;
   box-shadow: 0 2px 12px rgba(92, 61, 46, 0.07);
-  transition: box-shadow 0.3s, transform 0.3s var(--ease-smooth);
+  transition: box-shadow 0.3s var(--ease-smooth), transform 0.3s var(--ease-smooth);
 }
-.cert-item:hover {
-  box-shadow: 0 8px 28px rgba(92, 61, 46, 0.13);
-  transform: translateY(-3px);
+@media (hover: hover) and (pointer: fine) {
+  .cert-item:hover {
+    box-shadow: 0 8px 28px rgba(92, 61, 46, 0.13);
+    transform: translateY(-3px);
+  }
 }
 
 .cert-icon {
@@ -1090,12 +1128,25 @@ section {
   transform: rotate(45deg);
 }
 
+.faq-answer-wrap {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.3s var(--ease-smooth);
+}
+.faq-answer-wrap.open {
+  grid-template-rows: 1fr;
+}
+
 .faq-answer {
-  padding: 0 1.5rem 1.2rem;
+  overflow: hidden;
+  padding: 0 1.5rem;
   font-size: 0.92rem;
   color: var(--marrom-mid);
   border-top: 1px solid rgba(92, 61, 46, 0.07);
-  padding-top: 1rem;
+}
+.faq-answer-wrap.open .faq-answer {
+  padding: 1rem 1.5rem 1.2rem;
+  transition: padding 0.3s var(--ease-smooth);
 }
 
 
@@ -1128,11 +1179,13 @@ section {
   box-shadow: 0 4px 20px rgba(92, 61, 46, 0.07);
   transition:
     transform   0.3s var(--ease-smooth),
-    box-shadow  0.3s;
+    box-shadow  0.3s var(--ease-smooth);
 }
-.contato-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 36px rgba(92, 61, 46, 0.12);
+@media (hover: hover) and (pointer: fine) {
+  .contato-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 36px rgba(92, 61, 46, 0.12);
+  }
 }
 /* Grid de contato com 2 cards */
 .contato-grid--2 {
@@ -1232,18 +1285,20 @@ footer p { font-size: 0.78rem; }
   box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
   transition:
     transform   0.3s var(--ease-smooth),
-    box-shadow  0.3s;
-  animation: pulse-green 2.5s infinite;
+    box-shadow  0.3s var(--ease-smooth);
+  animation: pulse-green 2.5s ease-in-out infinite;
 }
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
-  animation: none;
+@media (hover: hover) and (pointer: fine) {
+  .whatsapp-float:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 28px rgba(37, 211, 102, 0.55);
+    animation: none;
+  }
 }
 
 @keyframes pulse-green {
-  0%, 100% { box-shadow: 0 4px 20px rgba(37, 211, 102, 0.40); }
-  50%       { box-shadow: 0 4px 36px rgba(37, 211, 102, 0.65); }
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.08); opacity: 0.88; }
 }
 
 
@@ -1255,10 +1310,12 @@ footer p { font-size: 0.78rem; }
   top: 0;
   left: 0;
   height: 3px;
+  width: 100%;
   background: linear-gradient(90deg, var(--terracota), var(--salvia));
   z-index: 200;
-  width: 0%;
-  transition: width 0.1s linear;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.1s linear;
 }
 
 
@@ -1280,20 +1337,15 @@ footer p { font-size: 0.78rem; }
   .nav-links  { display: flex; }
   .hamburger  { display: none; }
 
-  /* Hero: layout de duas colunas (texto + foto) */
+  /* Hero: layout de duas colunas (foto | texto) */
   .hero-inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
-      "text  visual"
-      "cta   visual";
-    gap: 2rem 4rem;
-    align-items: start;
-  }
-  .hero-inner {
-    grid-template-areas:
       "visual text"
       "visual cta";
+    gap: 2rem 4rem;
+    align-items: start;
   }
   .hero-text        { grid-area: text; text-align: left; }
   .hero-visual      { grid-area: visual; grid-row: span 2; justify-content: flex-start; align-self: center; }
@@ -1320,10 +1372,62 @@ footer p { font-size: 0.78rem; }
   opacity: 0;
   transform: translateY(24px);
   transition:
-    opacity   0.7s var(--ease-smooth),
-    transform 0.7s var(--ease-smooth);
+    opacity   0.45s var(--ease-smooth),
+    transform 0.45s var(--ease-smooth);
 }
 [data-animate].visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+
+/* =============================================================================
+   21. FOCO VISÍVEL
+============================================================================= */
+:focus-visible {
+  outline: 2px solid var(--terracota);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* Links e elementos sem borda arredondada já herdam a regra acima.
+   Botões com pill shape precisam de raio maior. */
+.btn:focus-visible,
+.carousel-btn:focus-visible,
+.pill:focus-visible,
+.hamburger:focus-visible {
+  outline-radius: 100px;
+}
+
+
+/* =============================================================================
+   22. PREFERÊNCIA DE MOVIMENTO REDUZIDO
+============================================================================= */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  .carousel-track {
+    transition: none;
+  }
+
+  .whatsapp-float {
+    animation: none;
+  }
+
+  .progress-bar {
+    transition: none;
+  }
+
+  .faq-answer-wrap {
+    transition: none;
+  }
 }

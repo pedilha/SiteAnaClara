@@ -20,7 +20,7 @@
    01. AOS — Animate On Scroll
 ============================================================================= */
 AOS.init({
-  duration: 750,
+  duration: 450,
   easing:   'ease-out-cubic',
   once:     true,
   offset:   60,
@@ -50,8 +50,8 @@ const progressBar = document.getElementById('progressBar');
 
 function handleProgressBar() {
   const alturaTotal = document.documentElement.scrollHeight - window.innerHeight;
-  const porcentagem = alturaTotal > 0 ? (window.scrollY / alturaTotal) * 100 : 0;
-  progressBar.style.width = porcentagem + '%';
+  const fração = alturaTotal > 0 ? window.scrollY / alturaTotal : 0;
+  progressBar.style.transform = 'scaleX(' + fração + ')';
 }
 
 window.addEventListener('scroll', handleProgressBar, { passive: true });
@@ -313,9 +313,30 @@ function aplicarFaq(faqItems) {
   lista.innerHTML = faqItems.map((item, i) => `
     <details class="faq-item" data-aos="fade-up" data-aos-delay="${i * 80}">
       <summary class="faq-question">${item.pergunta}</summary>
-      <p class="faq-answer">${item.resposta}</p>
+      <div class="faq-answer-wrap">
+        <p class="faq-answer">${item.resposta}</p>
+      </div>
     </details>
   `).join('');
+
+  lista.querySelectorAll('.faq-item').forEach(details => {
+    const summary = details.querySelector('.faq-question');
+    const wrap    = details.querySelector('.faq-answer-wrap');
+
+    summary.addEventListener('click', e => {
+      e.preventDefault();
+
+      if (details.open) {
+        wrap.classList.remove('open');
+        wrap.addEventListener('transitionend', () => {
+          details.removeAttribute('open');
+        }, { once: true });
+      } else {
+        details.setAttribute('open', '');
+        requestAnimationFrame(() => wrap.classList.add('open'));
+      }
+    });
+  });
 }
 
 
