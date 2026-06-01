@@ -31,6 +31,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="preload" as="image" href="img/capa.JPG" />
 
   <!-- Microsoft Clarity -->
   <script type="text/javascript">
@@ -52,10 +53,12 @@
 </head>
 <body>
 
+  <a href="#sobre" class="skip-link">Pular para o conteúdo</a>
+
   <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
 
   <!-- NAVBAR -->
-  <nav id="navbar" role="navigation" aria-label="Navegação principal">
+  <nav id="navbar" aria-label="Navegação principal">
     <div class="container nav-inner">
       <a href="#hero" class="nav-logo">Ana Clara <span>Tomaz</span></a>
       <ul class="nav-links" role="list">
@@ -94,6 +97,7 @@
         class="hero-photo"
         width="800"
         height="1067"
+        fetchpriority="high"
       />
       <div class="hero-photo-fade" aria-hidden="true"></div>
     </div>
@@ -219,7 +223,7 @@
   <section id="abordagem" aria-labelledby="abordagem-label">
     <div class="container">
       <div class="quote-block" data-aos="fade-up">
-        <p id="abordagem-label" class="tag" style="margin-bottom:2rem;">Minha filosofia</p>
+        <p id="abordagem-label" class="tag">Minha filosofia</p>
         <blockquote class="quote-text">
           "Cuidar da saúde mental não é luxo — é um ato de amor próprio e de coragem. Sua história é valiosa e merece ser escutada."
         </blockquote>
@@ -255,7 +259,7 @@
           rel="noopener noreferrer"
           class="btn btn-cta-white"
         >
-            <img src="img/logo_wpp.png" alt="" aria-hidden="true" style="width:20px;height:20px;object-fit:contain;"> Falar pelo WhatsApp
+            <img src="img/logo_wpp.png" alt="" aria-hidden="true" class="icon-sm"> Falar pelo WhatsApp
         </a>
         <a
           href="https://www.instagram.com/psianaclaratomaz/"
@@ -263,7 +267,7 @@
           rel="noopener noreferrer"
           class="btn btn-cta-ghost"
         >
-          <img src="img/logo_insta.png" alt="" aria-hidden="true" style="width:20px;height:20px;object-fit:contain;"> Ver no Instagram
+          <img src="img/logo_insta.png" alt="" aria-hidden="true" class="icon-sm"> Ver no Instagram
         </a>
       </div>
     </div>
@@ -319,7 +323,7 @@
       <div class="contato-grid contato-grid--2">
 
         <div class="contato-card" data-aos="fade-up" data-aos-delay="0">
-          <div class="contato-icon" aria-hidden="true"><img src="img/logo_wpp.png" alt="" style="width:40px;height:40px;object-fit:contain;"></div>
+          <div class="contato-icon" aria-hidden="true"><img src="img/logo_wpp.png" alt="" class="icon-md"></div>
           <h4>WhatsApp</h4>
           <p>Agende sua primeira sessão de forma rápida e prática.</p>
           <a
@@ -334,7 +338,7 @@
         </div>
 
         <div class="contato-card" data-aos="fade-up" data-aos-delay="100">
-          <div class="contato-icon" aria-hidden="true"><img src="img/logo_insta.png" alt="Instagram" style="width:40px;height:40px;object-fit:contain;"></div>
+          <div class="contato-icon" aria-hidden="true"><img src="img/logo_insta.png" alt="Instagram" class="icon-md"></div>
           <h4>Instagram</h4>
           <p>Acompanhe conteúdos sobre saúde mental, autoconhecimento e bem-estar.</p>
           <a
