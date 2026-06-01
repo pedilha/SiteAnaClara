@@ -225,7 +225,7 @@ function aplicarHero(hero) {
   const destaque = qs('.hero-destaque');
   if (destaque) destaque.innerHTML = hero.destaque;
 
-  const foto = qs('.hero-visual img');
+  const foto = qs('#heroBgPhoto');
   if (foto && hero.foto) {
     foto.src = hero.foto;
     foto.alt = 'Foto de ' + hero.nome;
@@ -271,7 +271,7 @@ function aplicarCarrossel(slides) {
   track.innerHTML = slides.map(slide => `
     <figure class="carousel-slide">
       <div class="carousel-img-wrap">
-        <img src="${slide.foto}" alt="${slide.legenda}" loading="lazy" />
+        <img src="${slide.foto}" alt="${slide.legenda}" loading="lazy" width="800" height="450" />
       </div>
       <figcaption>${slide.legenda}</figcaption>
     </figure>
@@ -296,7 +296,7 @@ function aplicarCertificados(certs) {
     track.innerHTML = certs.map(cert => `
       <figure class="carousel-slide">
         <div class="carousel-img-wrap">
-          <img src="${cert.foto}" alt="${cert.legenda}" loading="lazy" />
+          <img src="${cert.foto}" alt="${cert.legenda}" loading="lazy" width="800" height="450" />
         </div>
         <figcaption>${cert.legenda}</figcaption>
       </figure>
