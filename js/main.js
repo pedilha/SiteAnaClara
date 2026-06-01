@@ -110,11 +110,16 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
    06. PILLS — toggle de seleção interativo
 ============================================================================= */
 document.querySelectorAll('.pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    const sel = pill.dataset.selected === 'true';
-    pill.style.background = sel ? '' : 'var(--terracota)';
-    pill.style.color      = sel ? '' : 'white';
-    pill.dataset.selected = sel ? 'false' : 'true';
+  pill.setAttribute('role', 'button');
+  pill.setAttribute('tabindex', '0');
+
+  function toggle() {
+    pill.dataset.selected = pill.dataset.selected === 'true' ? 'false' : 'true';
+  }
+
+  pill.addEventListener('click', toggle);
+  pill.addEventListener('keydown', e => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
   });
 });
 
