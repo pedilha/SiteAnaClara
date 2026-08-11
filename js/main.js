@@ -215,6 +215,11 @@ function iniciarCertCarrossel() {
    Cada função recebe o trecho correspondente do content.json e atualiza o DOM.
 ============================================================================= */
 
+/** Deriva o caminho .webp de uma foto (mesmo nome, extensão trocada) */
+function webpDe(caminhoFoto) {
+  return caminhoFoto.replace(/\.(jpe?g|png)$/i, '.webp');
+}
+
 function aplicarHero(hero) {
   const qs = sel => document.querySelector(sel);
 
@@ -231,9 +236,11 @@ function aplicarHero(hero) {
   if (destaque) destaque.innerHTML = hero.destaque;
 
   const foto = qs('#heroBgPhoto');
+  const fotoWebp = qs('#heroBgPhotoWebp');
   if (foto && hero.foto) {
     foto.src = hero.foto;
     foto.alt = 'Foto de ' + hero.nome;
+    if (fotoWebp) fotoWebp.srcset = webpDe(hero.foto);
   }
 }
 
@@ -276,7 +283,10 @@ function aplicarCarrossel(slides) {
   track.innerHTML = slides.map(slide => `
     <figure class="carousel-slide">
       <div class="carousel-img-wrap">
-        <img src="${slide.foto}" alt="${slide.legenda}" loading="lazy" width="800" height="450" />
+        <picture>
+          <source type="image/webp" srcset="${webpDe(slide.foto)}" />
+          <img src="${slide.foto}" alt="${slide.legenda}" loading="lazy" width="800" height="450" />
+        </picture>
       </div>
       <figcaption>${slide.legenda}</figcaption>
     </figure>
@@ -301,7 +311,10 @@ function aplicarCertificados(certs) {
     track.innerHTML = certs.map(cert => `
       <figure class="carousel-slide">
         <div class="carousel-img-wrap">
-          <img src="${cert.foto}" alt="${cert.legenda}" loading="lazy" width="800" height="450" />
+          <picture>
+            <source type="image/webp" srcset="${webpDe(cert.foto)}" />
+            <img src="${cert.foto}" alt="${cert.legenda}" loading="lazy" width="800" height="450" />
+          </picture>
         </div>
         <figcaption>${cert.legenda}</figcaption>
       </figure>

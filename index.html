@@ -6,6 +6,9 @@
   <meta name="description" content="Ana Clara Tomaz — Psicóloga CRP 09/22999. Acompanhamento psicológico para adolescentes e adultos que desejam se conhecer melhor e cuidar da saúde emocional." />
   <title>Ana Clara Tomaz | Psicóloga</title>
 
+  <!-- ── Canonical ─────────────────────────────────────────────────────────── -->
+  <link rel="canonical" href="https://psianaclaratomaz.com.br/" />
+
   <!-- ── Favicon ───────────────────────────────────────────────────────────── -->
   <link rel="icon" type="image/png" href="img/favicon.png" />
   <link rel="apple-touch-icon" href="img/favicon.png" />
@@ -26,30 +29,41 @@
   <meta name="twitter:description" content="Acompanhamento psicológico voltado ao público feminino, a partir de 13 anos. Atendimento com propósito, empático e acolhedor." />
   <meta name="twitter:image"       content="https://psianaclaratomaz.com.br/img/capa.JPG" />
 
+  <!-- ── Dados estruturados (schema.org) ──────────────────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "Ana Clara Tomaz | Psicóloga",
+    "image": "https://psianaclaratomaz.com.br/img/capa.JPG",
+    "url": "https://psianaclaratomaz.com.br/",
+    "telephone": "+5562981112485",
+    "description": "Acompanhamento psicológico voltado ao público feminino, a partir de 13 anos. Atendimento com propósito, individualizado e com base na ciência.",
+    "areaServed": "BR",
+    "sameAs": [
+      "https://www.instagram.com/psianaclaratomaz/"
+    ],
+    "founder": {
+      "@type": "Person",
+      "name": "Ana Clara Tomaz de Deus Fonseca",
+      "jobTitle": "Psicóloga",
+      "hasCredential": {
+        "@type": "EducationalOccupationalCredential",
+        "credentialCategory": "CRP 09/22999"
+      }
+    }
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="preload" as="image" href="img/capa.JPG" />
+  <link rel="preload" as="image" href="img/capa.webp" type="image/webp" />
 
-  <!-- Microsoft Clarity -->
-  <script type="text/javascript">
-    (function(c,l,a,r,i,t,y){
-        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
-        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
-        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
-    })(window, document, "clarity", "script", "x0bhpx7zdt");
-  </script>
-
-  <!-- Google Analytics (GA4) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-8SKCY341N2"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-8SKCY341N2');
-  </script>
+  <!-- Google Analytics (GA4) e Microsoft Clarity só são carregados após
+       consentimento no banner de cookies — ver js/consent.js -->
 </head>
 <body>
 
@@ -90,15 +104,18 @@
 
     <!-- FOTO FULL-BLEED -->
     <div class="hero-bg-photo">
-      <img
-        id="heroBgPhoto"
-        src="img/capa.JPG"
-        alt="Ana Clara Tomaz, psicóloga"
-        class="hero-photo"
-        width="800"
-        height="1067"
-        fetchpriority="high"
-      />
+      <picture>
+        <source id="heroBgPhotoWebp" type="image/webp" srcset="img/capa.webp" />
+        <img
+          id="heroBgPhoto"
+          src="img/capa.JPG"
+          alt="Ana Clara Tomaz, psicóloga"
+          class="hero-photo"
+          width="800"
+          height="1067"
+          fetchpriority="high"
+        />
+      </picture>
       <div class="hero-photo-fade" aria-hidden="true"></div>
     </div>
 
@@ -158,35 +175,35 @@
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="0">
           <div class="beneficio-num" aria-hidden="true">01</div>
           <div>
-            <h4>Autoconhecimento profundo</h4>
+            <h3>Autoconhecimento profundo</h3>
             <p>Entender seus padrões emocionais, crenças e comportamentos é o primeiro passo para uma vida mais consciente e plena.</p>
           </div>
         </div>
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="80">
           <div class="beneficio-num" aria-hidden="true">02</div>
           <div>
-            <h4>Gestão das emoções</h4>
+            <h3>Gestão das emoções</h3>
             <p>Aprenda a reconhecer, nomear e regular suas emoções — com mais equilíbrio no dia a dia e nas relações.</p>
           </div>
         </div>
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="160">
           <div class="beneficio-num" aria-hidden="true">03</div>
           <div>
-            <h4>Relações mais saudáveis</h4>
+            <h3>Relações mais saudáveis</h3>
             <p>Ao se conhecer melhor, você se relaciona de forma mais autêntica — com limites claros e comunicação mais aberta.</p>
           </div>
         </div>
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="240">
           <div class="beneficio-num" aria-hidden="true">04</div>
           <div>
-            <h4>Superação de medos e bloqueios</h4>
+            <h3>Superação de medos e bloqueios</h3>
             <p>Dê passos seguros além do que te paralisa — seja na vida profissional, nos relacionamentos ou na sua própria identidade.</p>
           </div>
         </div>
         <div class="beneficio-item" data-aos="fade-up" data-aos-delay="320">
           <div class="beneficio-num" aria-hidden="true">05</div>
           <div>
-            <h4>Bem-estar e qualidade de vida</h4>
+            <h3>Bem-estar e qualidade de vida</h3>
             <p>Cuidar da saúde mental impacta diretamente o seu corpo, sono, produtividade e a forma como você aprecia a vida.</p>
           </div>
         </div>
@@ -324,7 +341,7 @@
 
         <div class="contato-card" data-aos="fade-up" data-aos-delay="0">
           <div class="contato-icon" aria-hidden="true"><img src="img/logo_wpp.png" alt="" class="icon-md"></div>
-          <h4>WhatsApp</h4>
+          <h3>WhatsApp</h3>
           <p>Agende sua primeira sessão de forma rápida e prática.</p>
           <a
             href="https://api.whatsapp.com/send?phone=5562981112485&text=Oii+Ana%2C+gostaria+de+iniciar+acompanhamento+psicol%C3%B3gico+com+voc%C3%AA%21+%F0%9F%92%8C"
@@ -339,7 +356,7 @@
 
         <div class="contato-card" data-aos="fade-up" data-aos-delay="100">
           <div class="contato-icon" aria-hidden="true"><img src="img/logo_insta.png" alt="Instagram" class="icon-md"></div>
-          <h4>Instagram</h4>
+          <h3>Instagram</h3>
           <p>Acompanhe conteúdos sobre saúde mental, autoconhecimento e bem-estar.</p>
           <a
             href="https://www.instagram.com/psianaclaratomaz/"
@@ -388,6 +405,7 @@
       <div class="footer-logo">Ana Clara <span>Tomaz</span></div>
       <p>© 2026 Ana Clara Tomaz de Deus Fonseca — Todos os direitos reservados.</p>
       <p class="footer-crp">CRP 09/22999 · Atendimento conforme Código de Ética dos Psicólogos</p>
+      <p class="footer-links"><a href="politica-de-privacidade.html">Política de Privacidade</a></p>
       <p class="dev-credit">Desenvolvido por Pedro Willian Moraes · <a href="mailto:pedrowilian13@gmail.com">pedrowilian13@gmail.com</a></p>
     </div>
   </footer>
@@ -405,6 +423,19 @@
     </svg>
   </a>
 
+  <!-- COOKIE CONSENT -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-label="Aviso de cookies" aria-live="polite">
+    <p>
+      Usamos cookies de análise (Google Analytics e Microsoft Clarity) para entender como o site é
+      usado. Veja mais na <a href="politica-de-privacidade.html">Política de Privacidade</a>.
+    </p>
+    <div class="cookie-banner-actions">
+      <button type="button" id="cookieRecusar" class="btn-cookie btn-cookie-recusar">Recusar</button>
+      <button type="button" id="cookieAceitar" class="btn-cookie btn-cookie-aceitar">Aceitar</button>
+    </div>
+  </div>
+
+  <script src="js/consent.js"></script>
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script src="js/main.js"></script>
 

@@ -601,7 +601,7 @@ section {
   flex-shrink: 0;
   width: 2.5rem;
 }
-.beneficio-item h4 {
+.beneficio-item h3 {
   color: var(--nude);
   font-family: var(--font-display);
   font-size: 1.2rem;
@@ -1022,7 +1022,7 @@ section {
   margin-bottom: 1rem;
   font-size: 1.5rem;
 }
-.contato-card h4 {
+.contato-card h3 {
   font-family: var(--font-display);
   font-size: 1.2rem;
   margin-bottom: 0.4rem;
@@ -1109,6 +1109,16 @@ footer p { font-size: 0.78rem; }
   color: rgba(242, 234, 224, 0.4);
   margin-top: 0.3rem;
 }
+.footer-links {
+  font-size: 0.75rem;
+  margin-top: 0.4rem;
+}
+.footer-links a {
+  color: rgba(242, 234, 224, 0.55);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+.footer-links a:hover { color: var(--nude); }
 .dev-credit {
     margin-top: 0.4rem;
     font-size: 0.72rem;
@@ -1123,6 +1133,73 @@ footer p { font-size: 0.78rem; }
 
 .dev-credit a:hover {
     color: var(--nude);
+}
+
+
+/* =============================================================================
+   16b. COOKIE BANNER (LGPD)
+============================================================================= */
+.cookie-banner {
+  position: fixed;
+  left: 1rem;
+  right: 1rem;
+  bottom: -120%;
+  z-index: 300;
+  max-width: 640px;
+  margin-inline: auto;
+  background: var(--branco);
+  color: var(--marrom);
+  border: 1px solid var(--nude-dark);
+  border-radius: var(--radius-sm);
+  padding: 1.2rem 1.4rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: bottom 0.4s var(--ease-smooth);
+}
+.cookie-banner.show { bottom: 1.5rem; }
+
+.cookie-banner p {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  margin: 0;
+}
+.cookie-banner a {
+  color: var(--terracota);
+  text-decoration: underline;
+}
+
+.cookie-banner-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.btn-cookie {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-cookie-recusar {
+  background: transparent;
+  border: 1px solid var(--nude-dark);
+  color: var(--marrom-mid);
+}
+.btn-cookie-recusar:hover { border-color: var(--marrom-mid); color: var(--marrom); }
+.btn-cookie-aceitar {
+  background: var(--terracota);
+  border: 1px solid var(--terracota);
+  color: white;
+}
+.btn-cookie-aceitar:hover { background: var(--marrom); border-color: var(--marrom); }
+
+@media (max-width: 480px) {
+  .cookie-banner-actions { justify-content: stretch; }
+  .btn-cookie { flex: 1; }
 }
 
 

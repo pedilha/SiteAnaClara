@@ -1,0 +1,15 @@
+# Ana Clara Tomaz | Psicóloga
+
+> Landing page institucional de Ana Clara Tomaz, psicóloga (CRP 09/22999), com acompanhamento psicológico 100% online voltado ao público feminino a partir de 13 anos.
+
+Site de página única (one-page) de uma psicóloga clínica brasileira formada pela PUC Goiás, atualmente em especialização em Neuropsicologia. Atendimento com abordagem Terapia Cognitivo-Comportamental e Contextual, focado em adolescentes e mulheres adultas. Conversão principal via WhatsApp; contato secundário via Instagram.
+
+## Páginas
+
+- [Página inicial](https://psianaclaratomaz.com.br/): Hero, sobre a profissional, benefícios do acompanhamento psicológico, trajetória acadêmica, FAQ e formas de contato (WhatsApp, Instagram, localização).
+- [Política de Privacidade](https://psianaclaratomaz.com.br/politica-de-privacidade.html): Uso de cookies de análise (Google Analytics, Microsoft Clarity) e tratamento de dados conforme a LGPD.
+
+## Notas
+
+- Conteúdo textual do site é gerenciado via `content.json` e pode mudar sem alterar a estrutura das páginas acima.
+- `/admin/` é um painel de edição de conteúdo, não é conteúdo destinado a indexação.

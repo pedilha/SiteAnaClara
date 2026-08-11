@@ -1,0 +1,13 @@
+# IDE
+.idea/
+.vscode/
+
+# Ferramentas internas / relatórios
+.impeccable/
+
+# SO
+.DS_Store
+Thumbs.db
+
+# Temporários
+*.tmp
